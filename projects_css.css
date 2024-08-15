@@ -1,0 +1,52 @@
+.body{
+    background-color: white;
+    color: black;
+    justify-content: center;
+}
+
+.title{
+    font-family: "Ga Maamli", sans-serif;
+    font-weight: 400;
+    font-size:xx-large;
+    font-style: normal;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color:black;
+}
+
+.containers{
+    border: 2px black solid;
+    box-shadow: yellow;
+    margin: 20px;
+    padding: 10px;
+}
+
+.containers:hover{
+    box-shadow: black;
+}
+
+.container_title{
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.container_body{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.container_skills{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+
+.container_tenure{
+    text-align: left;    
+}
