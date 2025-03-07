@@ -45,6 +45,15 @@ img{
     
     text-align: center;
     font-family: 'Andika', sans-serif;
+    font-size: 25px;
+    font-weight: lighter;
+    text-decoration: none;    
+}
+
+.about{
+    
+    text-align: center;
+    font-family: 'Andika', sans-serif;
     font-size: 20px;
     font-weight: lighter;
     text-decoration: none;    
