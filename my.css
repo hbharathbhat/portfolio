@@ -209,11 +209,14 @@ img{
 }
 
 .my13{
-    text-align: left;
-    border: 2px solid #333;
-    border-radius: 10px;
-    border-bottom: 50%;
-    display: inline-block;
+    flex-wrap: wrap;
+    align-content: center;
+    border: solid 2px rgb(0, 0, 0);
+    background-color: white;
+    border-radius: 20px;
+    /* box-shadow: 0 0 20px rgb(77, 252, 214); */
+    padding:5px;
+    margin: 5px;
 }
 
 .my14{
@@ -297,13 +300,28 @@ img{
     font-weight:bolder;
 }
 
-.container{
+/* .container{
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     /* justify-content:space-around; */
     /* flex-wrap: wrap;
-    align-content: center; */
+    align-content: center; 
+} */
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
+
+/* When the screen width is below 600px, switch to vertical orientation */
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 
 .container:hover{
     color:#2d0249;
@@ -339,4 +357,6 @@ th, td{
     border: solid black 2px;
     border-radius: 20px;
 }
+
+
 
