@@ -5,45 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H Bharath Bhat | Portfolio</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Andika&family=Passions+Conflict&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andika&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- GLOBAL STYLES --- */
+        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --primary: #2c3e50;
-            --accent: #e74c3c; 
-            --secondary: #3498db;
-            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            
-            /* Font Definitions */
-            --font-body: 'Andika', sans-serif;
-            --font-logo: 'Amatic SC', cursive; 
+            --primary: #2c3e50;       /* Dark Blue/Grey */
+            --secondary: #009999;     /* Siemens Teal */
+            --accent: #e74c3c;        /* Red Accent */
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --text-main: #333333;
+            --text-light: #666666;
+            --card-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            background: #f9f9f9; 
-            color: #333; 
+            background: var(--light-bg); 
+            color: var(--text-main); 
+            font-family: 'Outfit', 'Andika', sans-serif; 
             line-height: 1.6; 
-            padding-bottom: 60px;
-            font-family: var(--font-body); /* Everything defaults to Andika */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        
+
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
-
-        /* --- FONT UTILITY CLASS --- */
-        /* Applied to the specific items you requested: Andika, Non-Bold */
-        .special-font {
-            font-family: var(--font-body);
-            font-weight: 400; /* Normal/Non-bold */
-            letter-spacing: 0;
-        }
 
         /* --- NAVIGATION --- */
         nav {
@@ -56,175 +50,189 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        .logo { 
-            font-family: var(--font-logo); /* Keeping Logo distinct */
-            font-size: 2.2rem; 
-            font-weight: bold; 
-            color: var(--secondary); 
-        }
-        .logo span { color: white; font-family: var(--font-logo); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--secondary); }
+        .logo span { color: white; }
 
-        .nav-links { display: flex; gap: 20px; }
+        .nav-links { display: flex; gap: 25px; }
         .nav-links li { 
             cursor: pointer; 
-            padding: 5px 10px; 
+            padding: 8px 15px; 
             border-radius: 4px; 
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
-        .nav-links li:hover, .nav-links li.active { background-color: var(--secondary); color: white; }
+        .nav-links li:hover, .nav-links li.active { background-color: rgba(255,255,255,0.1); color: var(--secondary); }
         .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: white; }
 
         /* --- SECTIONS --- */
         .page-section {
             display: none; 
             padding: 2rem 5%;
-            animation: fadeIn 0.5s ease-in-out;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1; /* Pushes footer down */
+            animation: fadeIn 0.4s ease-in-out;
+            width: 100%;
         }
         .page-section.active { display: block; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- TYPOGRAPHY UPDATES --- */
-
-        /* 1. Name (H1) */
-        h1 { 
-            color: var(--primary); 
-            margin-bottom: 0.5rem; 
-            font-size: 3.5rem; /* Large size */
-            line-height: 1.2;
-            font-family: var(--font-body); /* Andika */
-            font-weight: 400; /* Non-bold */
-        }
-
-        /* 2. Section Headers (Experience, Education) */
+        /* --- TYPOGRAPHY --- */
+        h1 { color: var(--primary); margin-bottom: 0.5rem; font-size: 3rem; line-height: 1.2; }
         h2 { 
-            color: var(--primary);
-            font-family: var(--font-body); 
-            font-size: 2.2rem; 
+            color: var(--primary); 
+            font-size: 2rem; 
+            margin: 40px 0 20px 0; 
             border-bottom: 3px solid var(--secondary); 
             display: inline-block; 
             padding-bottom: 5px; 
-            margin-bottom: 30px; 
-            font-weight: bold; /* Keeping section headers standard bold */
         }
-
-        /* 3. Card Titles (Jobs, Projects, Colleges) */
-        .card h3 { 
-            color: var(--primary); 
-            margin-bottom: 10px; 
-            font-family: var(--font-body); /* Andika */
-            font-weight: 400; /* Non-bold */
-            font-size: 1.5rem; 
+        h3 { color: var(--primary); margin-bottom: 5px; font-size: 1.25rem; font-weight: 700; }
+        
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
         }
 
         /* --- HERO HEADER --- */
         .hero {
-            background: var(--bg-gradient);
-            padding: 4rem 2rem;
+            background: white;
+            padding: 3rem;
             text-align: center;
-            border-radius: 0 0 20px 20px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
             margin-bottom: 2rem;
+            margin-top: 1rem;
         }
-        .hero p { font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto 10px auto; }
+        .hero-role { color: var(--secondary); font-weight: 600; font-size: 1.2rem; margin-bottom: 15px; display: block;}
+        .hero p { max-width: 700px; margin: 0 auto 20px auto; color: var(--text-light); }
         
-        .namaste {
-            font-family: 'Passions Conflict', cursive;
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .hero-btn {
+        .btn {
             display: inline-block;
             background: var(--secondary);
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            margin-top: 20px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            margin-right: 10px;
-            font-size: 1rem;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 10px 5px;
         }
-        .hero-btn:hover { background: var(--primary); transform: translateY(-2px); }
+        .btn:hover { background: var(--primary); transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 2px solid var(--secondary); color: var(--secondary); }
+        .btn-outline:hover { background: var(--secondary); color: white; }
 
-        /* --- CARDS --- */
+        /* --- GRID & CARDS --- */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
         }
 
         .card {
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: var(--card-shadow);
             border-left: 5px solid var(--secondary);
             transition: transform 0.2s;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card:hover { transform: translateY(-5px); }
-
-        .card .date { font-size: 0.9rem; color: #888; margin-bottom: 10px; display: block; font-style: italic; }
-        .card ul { padding-left: 15px; }
-        .card ul li { list-style-type: disc; margin-bottom: 5px; color: #444; }
         
+        .card-header { margin-bottom: 15px; }
+        .date { font-size: 0.85rem; color: #999; font-style: italic; margin-bottom: 10px; display: block; }
+        
+        .card ul { padding-left: 18px; margin-bottom: 15px; }
+        .card ul li { list-style-type: disc; margin-bottom: 5px; color: #555; font-size: 0.95rem; }
+
+        /* --- TAGS --- */
+        .tags { margin-top: auto; }
         .tag {
             display: inline-block;
             background: #eef2f7;
             color: var(--primary);
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             margin-right: 5px;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
-        .exp-card { border-left-color: var(--accent); }
-        .cert-card { border-left-color: #27ae60; }
+        /* --- PROJECTS SPECIFIC --- */
+        .project-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .project-link:hover { text-decoration: underline; }
+
+        /* --- CERTIFICATES LIST --- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .cert-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            border-top: 4px solid var(--primary);
+        }
+        .cert-card img { height: 40px; margin-bottom: 10px; object-fit: contain; }
+        .cert-title { font-weight: 700; color: var(--primary); font-size: 1.1rem; line-height: 1.3; margin-bottom: 5px;}
+        .cert-provider { color: var(--secondary); font-size: 0.9rem; font-weight: 600; }
+        .cert-date { font-size: 0.8rem; color: #888; margin-bottom: 10px; display: block; }
 
         /* --- CONTACT FORM --- */
-        .contact-container { max-width: 600px; margin: 0 auto; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--primary); font-size: 1.1rem; }
-        .form-control { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; font-family: var(--font-body); }
+        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: var(--card-shadow); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--primary); }
+        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
         .form-control:focus { border-color: var(--secondary); outline: none; }
         textarea.form-control { resize: vertical; min-height: 120px; }
-        
-        .send-btn {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            width: 100%;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .send-btn:hover { background: var(--primary); }
-
-        /* --- SOCIALS --- */
-        .social-link-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            text-decoration: none; color: white; padding: 12px 25px;
-            border-radius: 50px; margin: 10px; font-weight: bold; transition: 0.3s;
-            width: fit-content;
-        }
-        .social-container { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 20px; }
+        .social-links { text-align: center; margin-top: 30px; }
+        .social-links a { font-size: 1.5rem; margin: 0 15px; color: var(--primary); }
+        .social-links a:hover { color: var(--secondary); }
 
         /* --- FOOTER --- */
-        footer { background: var(--primary); color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
-        .footer-links { margin-top: 1rem; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .footer-links a:hover { color: var(--secondary); text-decoration: underline; }
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #ccc;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .footer-links a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
@@ -241,10 +249,9 @@
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             }
             .nav-links.nav-active { display: flex; }
-            .nav-links li { text-align: center; padding: 15px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            
-            h1 { font-size: 2.8rem; }
-            .card h3 { font-size: 1.3rem; }
+            .nav-links li { text-align: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            h1 { font-size: 2.5rem; }
+            .footer-links { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -258,32 +265,38 @@
         <ul class="nav-links" id="navLinks">
             <li onclick="showPage('home')" class="active">Home</li>
             <li onclick="showPage('projects')">Projects</li>
-            <li onclick="showPage('certificates')">Certificates & Courses</li>
+            <li onclick="showPage('certificates')">Certificates</li>
             <li onclick="showPage('contact')">Contact</li>
         </ul>
     </nav>
 
     <section id="home" class="page-section active">
         <div class="hero">
-            <img src="./images/dp_recent.jpg" alt="Profile" style="width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); margin-bottom: 15px;">
-            
             <h1>H Bharath Bhat</h1>
+            <span class="hero-role">Verification Engineer | Siemens EDA</span>
             
-            <span class="namaste">Namaste🙏🏽</span>
-            <p>I'm Bharath, an aspiring VLSI Engineer with a strong background in hardware design and digital logic. Currently pursuing B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
-            <p style="margin-top: 10px; font-size: 0.95rem;"><i>Expertise: Verilog, C, Python, Xilinx Vivado, Cadence Genus, Git</i></p>
+            <p>Aspiring VLSI Engineer with a strong background in hardware design and digital logic. 
+            Currently pursuing B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
             
-            <div style="margin-top: 20px;">
-                <a href="resume.pdf" class="hero-btn"><i class="fa-solid fa-file-arrow-down"></i> Resume</a>
-                <a href="#contact" onclick="showPage('contact')" class="hero-btn" style="background: var(--primary);">Contact Me</a>
+            <div class="tags" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;">
+                <span class="tag">SystemVerilog</span>
+                <span class="tag">UVM</span>
+                <span class="tag">Linux</span>
+                <span class="tag">Ethernet</span>
+                <span class="tag">FPGA</span>
             </div>
+
+            <a href="resume.pdf" class="btn"><i class="fa-solid fa-download"></i> Download Resume</a>
+            <a href="#contact" onclick="showPage('contact')" class="btn btn-outline">Contact Me</a>
         </div>
 
         <h2>Experience</h2>
         <div class="grid-container">
-            <div class="card exp-card">
-                <h3>Student Intern @ Siemens EDA</h3>
-                <span class="date">July 2025 – Present | Onsite</span>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Student Intern @ Siemens EDA</h3>
+                    <span class="date">July 2025 – Present | Onsite</span>
+                </div>
                 <ul>
                     <li>Getting trained on <strong>APB Avery VIP</strong>.</li>
                     <li>Built a UVM verification environment for a Memory Controller.</li>
@@ -292,112 +305,273 @@
                 <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">APB Avery VIP</span></div>
             </div>
 
-            <div class="card exp-card">
-                <h3>Research Intern @ IISc (CSA Dept)</h3>
-                <span class="date">Sep 2024 – Jan 2025 | Hybrid</span>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Research Intern @ IISc (CSA Dept)</h3>
+                    <span class="date">Sep 2024 – Jan 2025 | Hybrid</span>
+                </div>
                 <ul>
-                    <li>Worked under the guidance of <strong>Dr. Sumit Kumar Mandal</strong>.</li>
+                    <li>Guided by <strong>Dr. Sumit Kumar Mandal</strong>.</li>
                     <li>Conducted comparative analysis of Matrix Multipliers.</li>
                     <li>Focus on Energy Efficient Hardware Accelerators for ML Algorithms.</li>
                 </ul>
                 <div class="tags"><span class="tag">RTL Design</span><span class="tag">Verilog</span><span class="tag">C</span></div>
             </div>
 
-            <div class="card exp-card">
-                <h3>Research Intern @ IISc (FIST Group)</h3>
-                <span class="date">Nov 2023 – Apr 2024 | Onsite</span>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Research Intern @ IISc (FIST Group)</h3>
+                    <span class="date">Nov 2023 – Apr 2024 | Onsite</span>
+                </div>
                 <ul>
                     <li>Worked on Energy-Efficient Hardware Accelerators for Machine Learning.</li>
-                    <li>Contributed to IEEE Journal paper: <a href="https://ieeexplore.ieee.org/abstract/document/10596278" target="_blank" style="color: var(--secondary); text-decoration: underline;">Communication-aware Heterogeneous 2.5D Systems for Energy-efficient LLM Execution at Edge</a>.</li>
+                    <li>Contributed to IEEE Journal paper on Heterogeneous 2.5D Systems.</li>
                 </ul>
-                <div class="tags"><span class="tag">IEEE Publication</span><span class="tag">LLM</span><span class="tag">Hardware Design</span></div>
-            </div>
-        </div>
-
-        <h2 style="margin-top: 40px;">Education</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>JSS Academy of Technical Education, Bengaluru</h3>
-                <p><strong>B.E. in Electronics & Communication</strong></p>
-                <span class="date">2021 – 2025 | Aggregate: 8.83 CGPA</span>
-            </div>
-            <div class="card">
-                <h3>Mahesh PU College</h3>
-                <p><strong>Pre-University, PCMB</strong></p>
-                <span class="date">Completed 2020</span>
-            </div>
-            <div class="card">
-                <h3>Vidyaniketan Public School</h3>
-                <p><strong>Secondary Schooling</strong></p>
-                <span class="date">Completed 2018</span>
-                <p>Ullal Road Cross, Bengaluru 560056</p>
+                <div class="tags"><span class="tag">IEEE Publication</span><span class="tag">LLM</span><span class="tag">Hardware</span></div>
             </div>
         </div>
     </section>
 
     <section id="projects" class="page-section">
-        <h2>Academic & Personal Projects</h2>
+        <h2>Projects</h2>
         <div class="grid-container">
+            
             <div class="card">
-                <h3>UVM Testbench for Memory Controller</h3>
-                <span class="date">Aug 2025</span>
-                <p>Developed as part of SV/UVM training at Siemens EDA. Industry-grade verification workflow.</p>
+                <div class="card-header">
+                    <h3>UVM Testbench for Memory Controller</h3>
+                    <span class="date">Aug 2025</span>
+                </div>
+                <ul>
+                    <li>Developed as part of SV/UVM training at Siemens EDA.</li>
+                    <li>Industry-grade verification workflow and environment setup.</li>
+                </ul>
                 <div class="tags"><span class="tag">UVM</span><span class="tag">SystemVerilog</span></div>
             </div>
+
             <div class="card">
-                <h3>Performance Analysis of Sorting Algorithms on FPGA</h3>
-                <span class="date">Feb 2025</span>
-                <p><strong>🏆 Best Project Award</strong></p>
-                <p>Implemented sorting algorithms in Verilog, synthesized using Cadence 90nm, and analyzed on PYNQ FPGA.</p>
+                <div class="card-header">
+                    <h3>Performance Analysis of Sorting Algorithms on FPGA</h3>
+                    <span class="date">Feb 2025</span>
+                </div>
+                <ul>
+                    <li><strong>🏆 Best Project Award</strong></li>
+                    <li>Implemented sorting algorithms in Verilog.</li>
+                    <li>Synthesized using Cadence 90nm and analyzed on PYNQ FPGA.</li>
+                </ul>
                 <div class="tags"><span class="tag">FPGA</span><span class="tag">Verilog</span><span class="tag">Cadence</span></div>
             </div>
+
             <div class="card">
-                <h3>Hardware Implementation of Cussen's Algorithm</h3>
-                <span class="date">Sep 2024</span>
-                <p>Implemented in C (perf tool) and Verilog (Cadence Genus). Automated code generation with Python.</p>
-                <div class="tags"><span class="tag">RTL Design</span><span class="tag">Python</span><span class="tag">C</span></div>
+                <div class="card-header">
+                    <h3>Hardware Implementation of Cussen's Algorithm</h3>
+                    <span class="date">Sep 2024</span>
+                </div>
+                <ul>
+                    <li>Implemented Cussen’s Algorithm in C and analyzed execution time using <i>perf</i> tool.</li>
+                    <li>Developed Verilog implementation and synthesized using <strong>Cadence Genus</strong>.</li>
+                    <li>Automated Verilog code generation using custom Python script.</li>
+                </ul>
+                <div class="tags"><span class="tag">Verilog</span><span class="tag">C</span><span class="tag">Python</span></div>
+                <a href="https://github.com/hbharathbhat/cussen" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
             </div>
+
             <div class="card">
-                <h3>Minimally Biased Multipliers</h3>
-                <span class="date">Jun 2024</span>
-                <p>Approximate Integer Multiplication using Verilog. Synthesized using tsmc90 technology library.</p>
+                <div class="card-header">
+                    <h3>Hardware Implementation of Minimally Biased Multipliers</h3>
+                    <span class="date">June 2024</span>
+                </div>
+                <ul>
+                    <li>Hardware Implementation of Minimally Biased Multipliers for Approximate Integer Multiplication.</li>
+                    <li>Synthesized using tsmc90 technology library on <strong>Cadence Genus</strong>.</li>
+                </ul>
                 <div class="tags"><span class="tag">Verilog</span><span class="tag">Cadence Genus</span></div>
+                <a href="https://github.com/hbharathbhat/minimally_biased_multipliers" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
             </div>
+
             <div class="card">
-                <h3>Tech Fusion Cruiser</h3>
-                <span class="date">Jan 2024</span>
-                <p><strong>🏆 1st Prize Winner</strong></p>
-                <p>Developed on ARIES V3.0 Development Board (Embedded C) during an inter-branch workshop.</p>
-                <div class="tags"><span class="tag">Embedded C</span><span class="tag">ARIES V3.0</span></div>
+                <div class="card-header">
+                    <h3>Tech Fusion Cruiser</h3>
+                    <span class="date">Jan 2024</span>
+                </div>
+                <ul>
+                    <li>Developed on ARIES V3.0 Development Board.</li>
+                    <li>Integrated electronic components for wireless control via Bluetooth (HC-05).</li>
+                </ul>
+                <div class="tags"><span class="tag">Embedded C</span><span class="tag">Arduino UNO</span><span class="tag">Aries V3.0</span></div>
+                <div>
+                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Github</a> | 
+                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser/blob/main/cdac_tech_fusion_cruiser.pdf" target="_blank" class="project-link"><i class="fa-solid fa-file-pdf"></i> Report</a>
+                </div>
             </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Collection of RTL Codes</h3>
+                    <span class="date">Jan 2023</span>
+                </div>
+                <ul>
+                    <li>Hobby project featuring flip-flops, adders, latches, muxes, ALUs, counters, RAMs, and ROMs.</li>
+                </ul>
+                <div class="tags"><span class="tag">Verilog</span><span class="tag">RTL Design</span></div>
+                <a href="https://github.com/hbharathbhat/rtl_codes" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
+            </div>
+
+             <div class="card">
+                <div class="card-header">
+                    <h3>Police Hackathon 2k23</h3>
+                    <span class="date">Feb 2023</span>
+                </div>
+                <ul>
+                    <li>Conducted by Karnataka State Police, IIIT-B, Microsoft and Intel.</li>
+                    <li>Result: <strong>Top 10 Teams</strong>.</li>
+                </ul>
+                <div class="tags"><span class="tag">Frontend Development</span></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Ideathon</h3>
+                    <span class="date">2022</span>
+                </div>
+                <ul>
+                    <li>Conducted by JSSATE in partnership with NASA Space App.</li>
+                    <li>Participated in ideation and problem solving.</li>
+                </ul>
+                <div class="tags"><span class="tag">Innovation</span><span class="tag">Problem Solving</span></div>
+            </div>
+
         </div>
     </section>
 
     <section id="certificates" class="page-section">
-        <h2>Major Courses & Workshops</h2>
+        <h2>Certifications & Courses</h2>
+        
+        <div class="section-subtitle">Hardware & VLSI Design</div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-title">Digital Design with Verilog</div>
+                <div class="cert-provider">NPTEL</div>
+                <span class="cert-date">Apr 2024</span>
+                <span style="font-size:0.8rem; color:#aaa;">(Link pending)</span>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Hardware Modelling using Verilog</div>
+                <div class="cert-provider">NPTEL</div>
+                <span class="cert-date">Oct 2023</span>
+                <a href="https://drive.google.com/file/d/1WToUotf_T8ti56qEDsFpZRZ9wtvnmryg/view?usp=sharing" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Signal Processing Onramp</div>
+                <div class="cert-provider">Mathworks</div>
+                <span class="cert-date">July 2023</span>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=19c115ae-da37-4ba9-b145-745df566529c&" target="_blank" class="project-link">View Certificate</a>
+            </div>
+        </div>
+
+        <div class="section-subtitle">Programming & Cybersecurity</div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-title">Programming, Data Structures & Algorithms using Python</div>
+                <div class="cert-provider">NPTEL</div>
+                <span class="cert-date">Sep 2024</span>
+                <a href="https://drive.google.com/file/d/1UE6elcHJQ9vf4DC2S28CgRlQSS7OPDtc/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Introduction to Programming in C</div>
+                <div class="cert-provider">NPTEL</div>
+                <span class="cert-date">Apr 2024</span>
+                <a href="https://drive.google.com/file/d/1PmnmPy_maluFiTsqXBzx_cwAxE-6KoNY/view?usp=sharing" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Programming in C</div>
+                <div class="cert-provider">NPTEL</div>
+                <span class="cert-date">Oct 2023</span>
+                <a href="https://drive.google.com/file/d/1EaVxSq_Taggk8TAMQahWcay7-Ns6eZqm/view?usp=drive_link" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">C Programming Bootcamp</div>
+                <div class="cert-provider">Udemy</div>
+                <span class="cert-date">Dec 2023</span>
+                <a href="https://www.udemy.com/certificate/UC-0b9def1a-3c91-4800-8c1f-8a5cd1847f98/" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Foundation of Cybersecurity</div>
+                <div class="cert-provider">Google / Coursera</div>
+                <span class="cert-date">Nov 2023</span>
+                <a href="https://www.coursera.org/account/accomplishments/certificate/3ZZLJG7GWXQ3" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Play It Safe: Manage Security Risks</div>
+                <div class="cert-provider">Google / Coursera</div>
+                <span class="cert-date">Dec 2023</span>
+                <a href="https://coursera.org/share/28c6d39a5dc8e00cc5f7c7067b449aed" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Python Basics</div>
+                <div class="cert-provider">Infosys Springboard</div>
+                <span class="cert-date">Nov 2022</span>
+                <a href="https://drive.google.com/file/d/1Iy8gcyR3WyuIvN-raDjWu5rMp_W2f2-9/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+            </div>
+        </div>
+
+        <div class="section-subtitle">Tools & Web Technologies</div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-title">Simulink Onramp</div>
+                <div class="cert-provider">Mathworks</div>
+                <span class="cert-date">July 2023</span>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=c769bab0-13a2-4228-bcc6-a450ddbad953&" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Matlab Onramp</div>
+                <div class="cert-provider">Mathworks</div>
+                <span class="cert-date">July 2023</span>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8fb21a8d-d76d-46f5-b883-ae07daf65d3d&" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">CSS3</div>
+                <div class="cert-provider">Infosys Springboard</div>
+                <span class="cert-date">Feb 2023</span>
+                <a href="https://drive.google.com/file/d/1Mak_5Y4Ls-sWtkOnikab0tAwJOu8u0NY/view?usp=share_link" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">HTML5 - The Language</div>
+                <div class="cert-provider">Infosys Springboard</div>
+                <span class="cert-date">Dec 2022</span>
+                <a href="https://drive.google.com/file/d/1Iy3ALD2XhR5X4l0duwBtigVLG8Njk8yJ/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+            </div>
+            <div class="cert-card">
+                <div class="cert-title">Data Analytics Using Power BI</div>
+                <div class="cert-provider">Vodafone Idea Foundation</div>
+                <span class="cert-date">Oct 2022</span>
+                <a href="https://drive.google.com/file/d/1-vKK5opzUAndvXA-IW4W3c-gCBmb5Utz/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 40px;">Workshops & Conferences</h2>
         <div class="grid-container">
-            <div class="card cert-card">
-                <h3>Programming & Software</h3>
-                <ul>
-                    <li><strong>IIT Madras:</strong> Programming, Data Structures & Algorithms using Python</li>
-                    <li><strong>IIT Kanpur:</strong> Introduction to Programming in C</li>
-                    <li><strong>Udemy:</strong> C Programming Bootcamp</li>
-                </ul>
+            <div class="card">
+                <div class="card-header">
+                    <h3>VLSID Conference 2025</h3>
+                    <span class="date">Jan 2025 | VLSI Society of India</span>
+                </div>
             </div>
-            <div class="card cert-card">
-                <h3>Hardware & Verification</h3>
-                <ul>
-                    <li><strong>IIT Kharagpur:</strong> Hardware Modeling Using Verilog</li>
-                    <li><strong>IIT Guwahati:</strong> Digital Design with Verilog</li>
-                    <li><strong>Udemy:</strong> Verification Series (Part 1, 2, 3)</li>
-                </ul>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Semiconductor Technology & Microfabrication</h3>
+                    <span class="date">June 2024 | CeNSE, IISc Bangalore</span>
+                </div>
             </div>
-            <div class="card cert-card">
-                <h3>Technical Skills</h3>
-                <div class="tags">
-                    <span class="tag">Verilog / SystemVerilog</span><span class="tag">UVM</span><span class="tag">C / C++</span>
-                    <span class="tag">Python</span><span class="tag">AMBA APB/AXI</span><span class="tag">Ethernet</span>
-                    <span class="tag">Xilinx Vivado</span><span class="tag">Cadence Genus</span><span class="tag">MATLAB</span>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Present and Future Computing Systems</h3>
+                    <span class="date">Jan 2024 | CSA Dept, IISc Bangalore</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Vega Processor and its Applications</h3>
+                    <span class="date">Dec 2023 | JSSATE</span>
                 </div>
             </div>
         </div>
@@ -405,58 +579,45 @@
 
     <section id="contact" class="page-section">
         <h2>Get In Touch</h2>
-        <div class="card contact-container">
-            <h3 style="text-align: center;">Send me a Message</h3>
-            
+        <div class="contact-container">
             <form id="mailForm" onsubmit="sendMail(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" class="form-control" placeholder="Your Name" required>
                 </div>
-                
                 <div class="form-group">
-                    <label for="email">Your Email ID</label>
+                    <label for="email">Email</label>
                     <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" class="form-control" placeholder="Write your message here..." required></textarea>
                 </div>
-                
-                <button type="submit" class="send-btn">Compose Mail <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn" style="border:none; width:100%; cursor:pointer;">Send Message <i class="fa-solid fa-paper-plane"></i></button>
             </form>
 
-            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
-
-            <div style="text-align: center;">
-                <p><i class="fa-solid fa-location-dot" style="color: var(--secondary);"></i> <strong>Address:</strong><br>
-                No 209, Yashaskaram, 3rd Cross, Vidyamanya Nagar, Bengaluru 560091</p>
-                <br>
-                <p><i class="fa-solid fa-envelope" style="color: var(--secondary);"></i> <a href="mailto:bharathbhat2805@gmail.com">bharathbhat2805@gmail.com</a></p>
-                <p><i class="fa-solid fa-phone" style="color: var(--secondary);"></i> <a href="tel:+917892104186">+91 7892104186</a></p>
-
-                <div class="social-container">
-                    <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank" class="social-link-btn" style="background: #0077b5;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-                    <a href="https://github.com/hbharathbhat" target="_blank" class="social-link-btn" style="background: #333;"><i class="fa-brands fa-github"></i> GitHub</a>
-                    <a href="https://wa.me/917892104186?text=Namaste🙏🏽" target="_blank" class="social-link-btn" style="background: #25D366;"><i class="fa-brands fa-whatsapp"></i> Say Namasthe</a>
-                </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/hbharathbhat" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:bharathbhat2805@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 H Bharath Bhat. All Rights Reserved.</p>
-        <div class="footer-links">
-            <a href="#home" onclick="showPage('home')">Home</a>
-            <a href="#projects" onclick="showPage('projects')">Projects</a>
-            <a href="https://github.com/hbharathbhat">GitHub</a>
-            <a href="https://linkedin.com/in/hbharathbhat">LinkedIn</a>
+        <div class="footer-content">
+            <p>&copy; 2026 H Bharath Bhat. All Rights Reserved.</p>
+            <div class="footer-links">
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('projects')">Projects</a>
+                <a onclick="showPage('certificates')">Certificates</a>
+                <a href="https://github.com/hbharathbhat" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank">LinkedIn</a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // --- 1. Navigation Logic ---
         const navLinks = document.getElementById('navLinks');
         
         function toggleMenu() {
@@ -464,30 +625,40 @@
         }
 
         function showPage(pageId) {
+            // Hide all sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active'));
 
+            // Remove active class from nav items
             const links = document.querySelectorAll('.nav-links li');
             links.forEach(link => link.classList.remove('active'));
 
+            // Show selected section
             document.getElementById(pageId).classList.add('active');
-            navLinks.classList.remove('nav-active'); // Close mobile menu
+            
+            // Highlight current nav item
+            const currentLink = Array.from(links).find(l => l.getAttribute('onclick').includes(pageId));
+            if(currentLink) currentLink.classList.add('active');
+
+            // Close mobile menu
+            navLinks.classList.remove('nav-active');
+            
+            // Scroll to top
             window.scrollTo(0,0);
         }
 
-        // --- 2. Contact Form (Mailto Generator) ---
         function sendMail(e) {
             e.preventDefault();
-            
             const name = document.getElementById('name').value;
             const senderEmail = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
             const subject = `Portfolio Contact from ${name}`;
             const body = `Name: ${name}%0D%0AEmail: ${senderEmail}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-
+            
             window.location.href = `mailto:bharathbhat2805@gmail.com?subject=${subject}&body=${body}`;
         }
     </script>
+
 </body>
 </html>
