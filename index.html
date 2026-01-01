@@ -36,6 +36,7 @@
             flex-direction: column;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden; /* Prevent horizontal scroll when menu is hidden */
         }
 
         /* --- SPACE BACKGROUND CANVAS --- */
@@ -262,22 +263,45 @@
             text-decoration: underline;
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE & MOBILE SIDE DRAWER --- */
         @media (max-width: 768px) {
-            .menu-toggle { display: block; }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                background-color: var(--primary);
-                padding: 10px 0;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            .menu-toggle { 
+                display: block; 
+                z-index: 1002; /* Must be higher than nav-links */
             }
-            .nav-links.nav-active { display: flex; }
-            .nav-links li { text-align: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            
+            /* The Side Drawer Style */
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+                width: 65%; /* Width of the drawer */
+                background-color: var(--primary); /* Solid color to cover content */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 100px; /* Space from top */
+                transform: translateX(100%); /* Start hidden off-screen */
+                transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.5); /* Shadow on left side */
+                z-index: 1001; /* Above sticky nav bar background */
+            }
+
+            .nav-links.nav-active { 
+                transform: translateX(0%); /* Slide In */
+            }
+
+            .nav-links li { 
+                opacity: 1;
+                width: 100%;
+                text-align: center; 
+                padding: 20px 0; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                font-size: 1.2rem;
+            }
+            
             h1 { font-size: 2.5rem; }
             .footer-links { flex-direction: column; gap: 15px; }
         }
@@ -292,6 +316,7 @@
         <div class="menu-toggle" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
+        
         <ul class="nav-links" id="navLinks">
             <li onclick="showPage('home')" class="active">Home</li>
             <li onclick="showPage('projects')">Projects</li>
@@ -303,17 +328,17 @@
     <section id="home" class="page-section active">
         <div class="hero">
             <h1>H Bharath Bhat</h1>
-            <span class="hero-role">Verification Engineer | Siemens EDA</span>
+            <span class="hero-role">Student Intern | Siemens EDA</span>
             
-            <p>Verification Engineer at <strong>Siemens EDA</strong> with a strong background in hardware design and digital logic. 
+            <p>Student Intern at <strong>Siemens EDA</strong> with a background in hardware design and digital logic. 
             Skilled in <strong>SystemVerilog</strong>, <strong>UVM</strong>, and Ethernet protocol verification. 
             B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
             
             <div class="tags" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;">
                 <span class="tag">SystemVerilog</span>
                 <span class="tag">UVM</span>
-                <span class="tag">Linux</span>
-                <span class="tag">Ethernet</span>
+                <!--<span class="tag">Linux</span>
+                <span class="tag">Ethernet</span>-->
                 <span class="tag">FPGA</span>
             </div>
 
@@ -388,7 +413,6 @@
                 <p style="font-size: 0.9rem; color: #555;">Bengaluru 560056</p>
             </div>
         </div>
-
     </section>
 
     <section id="projects" class="page-section">
@@ -681,7 +705,11 @@
         const navLinks = document.getElementById('navLinks');
         
         function toggleMenu() {
+            // Toggle the 'nav-active' class to slide the menu in/out
             navLinks.classList.toggle('nav-active');
+            
+            // Optional: Animate hamburger icon (turning it into an X)
+            // You can add logic here if you want the icon to change
         }
 
         function showPage(pageId) {
@@ -696,7 +724,9 @@
             const currentLink = Array.from(links).find(l => l.getAttribute('onclick').includes(pageId));
             if(currentLink) currentLink.classList.add('active');
 
+            // Close the menu when a link is clicked
             navLinks.classList.remove('nav-active');
+            
             window.scrollTo(0,0);
         }
 
