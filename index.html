@@ -21,19 +21,32 @@
             --white: #ffffff;
             --text-main: #333333;
             --text-light: #666666;
-            --card-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* Glassmorphism shadow */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            background: var(--light-bg); 
+            /* Background is handled by Canvas now */
+            background: transparent;
             color: var(--text-main); 
             font-family: 'Outfit', 'Andika', sans-serif; 
             line-height: 1.6; 
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- SPACE BACKGROUND CANVAS --- */
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Places it behind everything */
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -41,7 +54,8 @@
 
         /* --- NAVIGATION --- */
         nav {
-            background-color: var(--primary);
+            background-color: rgba(44, 62, 80, 0.95); /* Slight transparency */
+            backdrop-filter: blur(5px);
             color: white;
             padding: 1rem 5%;
             display: flex;
@@ -83,8 +97,10 @@
 
         /* --- TYPOGRAPHY --- */
         h1 { color: var(--primary); margin-bottom: 0.5rem; font-size: 3rem; line-height: 1.2; }
+        /* Adjusted Headers for Dark Mode Contrast */
         h2 { 
-            color: var(--primary); 
+            color: #ffffff; /* White text to stand out against space */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             font-size: 2rem; 
             margin: 40px 0 20px 0; 
             border-bottom: 3px solid var(--secondary); 
@@ -95,7 +111,7 @@
         
         .section-subtitle {
             font-size: 1.5rem;
-            color: var(--text-light);
+            color: #ddd; /* Lighter text for subtitle against space */
             margin: 30px 0 15px 0;
             font-weight: 600;
             border-left: 4px solid var(--accent);
@@ -104,7 +120,8 @@
 
         /* --- HERO HEADER --- */
         .hero {
-            background: white;
+            background: rgba(255, 255, 255, 0.92); /* Glass effect */
+            backdrop-filter: blur(5px);
             padding: 3rem;
             text-align: center;
             border-radius: 12px;
@@ -136,7 +153,7 @@
         }
 
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95); /* Slight transparency */
             padding: 25px;
             border-radius: 10px;
             box-shadow: var(--card-shadow);
@@ -146,7 +163,11 @@
             flex-direction: column;
             justify-content: space-between;
         }
-        .card:hover { transform: translateY(-5px); }
+        .card:hover { 
+            transform: translateY(-5px); 
+            background: #ffffff; /* Solid white on hover */
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
         
         .card-header { margin-bottom: 15px; }
         .date { font-size: 0.85rem; color: #999; font-style: italic; margin-bottom: 10px; display: block; }
@@ -186,7 +207,7 @@
             margin-bottom: 2rem;
         }
         .cert-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
             border-radius: 8px;
             box-shadow: var(--card-shadow);
@@ -198,7 +219,14 @@
         .cert-date { font-size: 0.8rem; color: #888; margin-bottom: 10px; display: block; }
 
         /* --- CONTACT FORM --- */
-        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: var(--card-shadow); }
+        .contact-container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: var(--card-shadow); 
+        }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--primary); }
         .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
@@ -210,7 +238,7 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--primary);
+            background-color: rgba(44, 62, 80, 0.95);
             color: white;
             text-align: center;
             padding: 3rem 5%;
@@ -257,6 +285,8 @@
 </head>
 <body>
 
+    <canvas id="space-canvas"></canvas>
+
     <nav>
         <div class="logo">Bharath <span>Bhat</span></div>
         <div class="menu-toggle" onclick="toggleMenu()">
@@ -275,14 +305,15 @@
             <h1>H Bharath Bhat</h1>
             <span class="hero-role">Student Intern | Siemens EDA</span>
             
-            <p>Aspiring VLSI Engineer with a strong background in hardware design and digital logic. 
-            Currently pursuing B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
+            <p>Student Intern at <strong>Siemens EDA</strong> with a background in hardware design and digital logic. 
+            Skilled in <strong>SystemVerilog</strong>, <strong>UVM</strong>, and Ethernet protocol verification. 
+            B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
             
             <div class="tags" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;">
                 <span class="tag">SystemVerilog</span>
                 <span class="tag">UVM</span>
-                <span class="tag">Linux</span>
-                <span class="tag">Ethernet</span>
+                <!--<span class="tag">Linux</span>
+                <span class="tag">Ethernet</span>-->
                 <span class="tag">FPGA</span>
             </div>
 
@@ -618,6 +649,7 @@
     </footer>
 
     <script>
+        /* --- NAVIGATION LOGIC --- */
         const navLinks = document.getElementById('navLinks');
         
         function toggleMenu() {
@@ -625,25 +657,18 @@
         }
 
         function showPage(pageId) {
-            // Hide all sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => section.classList.remove('active'));
 
-            // Remove active class from nav items
             const links = document.querySelectorAll('.nav-links li');
             links.forEach(link => link.classList.remove('active'));
 
-            // Show selected section
             document.getElementById(pageId).classList.add('active');
             
-            // Highlight current nav item
             const currentLink = Array.from(links).find(l => l.getAttribute('onclick').includes(pageId));
             if(currentLink) currentLink.classList.add('active');
 
-            // Close mobile menu
             navLinks.classList.remove('nav-active');
-            
-            // Scroll to top
             window.scrollTo(0,0);
         }
 
@@ -658,6 +683,65 @@
             
             window.location.href = `mailto:bharathbhat2805@gmail.com?subject=${subject}&body=${body}`;
         }
+
+        /* --- SPACE BACKGROUND LOGIC --- */
+        const canvas = document.getElementById('space-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const numStars = 200;
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5;
+                this.speed = Math.random() * 0.5 + 0.1; // Speed of movement
+            }
+
+            update() {
+                this.y -= this.speed; // Move Upwards
+                // If star goes off screen, reset to bottom
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initStars() {
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        initStars();
+        animateStars();
     </script>
 
 </body>
