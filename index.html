@@ -667,9 +667,8 @@
             <li onclick="showPage('gallery')">Gallery</li>
             <li onclick="showPage('contact')">Contact</li>
             <li id="themeToggle" onclick="toggleTheme()" title="Toggle Theme"
-                style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; overflow: hidden; border-radius: 50%;">
-                <img id="themeIcon" src="images/theme/moon.png" alt="Theme Toggle"
-                    style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover;">
+                style="display: flex; justify-content: center; align-items: center;">
+                <i class="fa-solid fa-moon" style="font-size: 1.2rem;"></i>
             </li>
         </ul>
     </nav>
@@ -1309,19 +1308,15 @@
         function toggleTheme() {
             const body = document.documentElement;
             const currentTheme = body.getAttribute('data-theme');
-            const icon = document.querySelector('#themeIcon');
+            const icon = document.querySelector('#themeToggle i');
 
             if (currentTheme === 'dark') {
                 body.removeAttribute('data-theme');
-                icon.src = 'images/theme/moon.png';
-                icon.style.mixBlendMode = 'normal';
-                icon.style.filter = 'none';
+                icon.className = 'fa-solid fa-moon';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.setAttribute('data-theme', 'dark');
-                icon.src = 'images/theme/sun.png';
-                icon.style.mixBlendMode = 'normal';
-                icon.style.filter = 'none';
+                icon.className = 'fa-solid fa-sun';
                 localStorage.setItem('theme', 'dark');
             }
         }
@@ -1331,10 +1326,7 @@
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                const icon = document.querySelector('#themeIcon');
-                icon.src = 'images/theme/sun.png';
-                icon.style.mixBlendMode = 'normal';
-                icon.style.filter = 'none';
+                document.querySelector('#themeToggle i').className = 'fa-solid fa-sun';
             }
         });
 
@@ -1372,15 +1364,38 @@
             }
         }
 
-        /* ISS images cache */
+        /* ISS true-transparent image generation wrapper */
         let loadedSatellites = { iss_dark: null, iss_light: null };
+        
+        function extractTransparency(img, isDark) {
+            let tCanvas = document.createElement('canvas');
+            tCanvas.width = img.naturalWidth;
+            tCanvas.height = img.naturalHeight;
+            let tCtx = tCanvas.getContext('2d', { willReadFrequently: true });
+            tCtx.drawImage(img, 0, 0);
+            let imgData = tCtx.getImageData(0, 0, tCanvas.width, tCanvas.height);
+            let data = imgData.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+               // Aggressive chroma-keying for the generated #000000 or #FFFFFF backgrounds
+               if (isDark) {
+                   if (data[i] < 35 && data[i+1] < 35 && data[i+2] < 35) data[i+3] = 0;
+               } else {
+                   if (data[i] > 220 && data[i+1] > 220 && data[i+2] > 220) data[i+3] = 0;
+               }
+            }
+            tCtx.putImageData(imgData, 0, 0);
+            let transparentImg = new Image();
+            transparentImg.src = tCanvas.toDataURL();
+            return transparentImg;
+        }
 
         let imgDark = new Image();
-        imgDark.onload = () => { loadedSatellites.iss_dark = imgDark; };
+        imgDark.onload = () => { loadedSatellites.iss_dark = extractTransparency(imgDark, true); };
         imgDark.src = 'images/satellites/iss_dark.png';
 
         let imgLight = new Image();
-        imgLight.onload = () => { loadedSatellites.iss_light = imgLight; };
+        imgLight.onload = () => { loadedSatellites.iss_light = extractTransparency(imgLight, false); };
         imgLight.src = 'images/satellites/iss_light.png';
 
         function createSpaceship() {
@@ -1466,19 +1481,11 @@
                 ctx.rotate(ship.angle);
 
                 let img = isDark ? loadedSatellites.iss_dark : loadedSatellites.iss_light;
-                if (img) {
-                    // Blend mode magic:
-                    // 'screen' makes black background disappear (for dark theme)
-                    // 'multiply' makes white background disappear (for light theme)
-                    ctx.globalCompositeOperation = isDark ? 'screen' : 'multiply';
-
-                    // Draw the image centered
+                if (img && img.complete) { // Fully extracted transparent image
+                    // Draw the perfectly cropped image centered
                     let aspectRatio = img.naturalHeight / img.naturalWidth;
                     let drawHeight = ship.size * aspectRatio;
                     ctx.drawImage(img, -ship.size / 2, -drawHeight / 2, ship.size, drawHeight);
-
-                    // Reset blending mode
-                    ctx.globalCompositeOperation = 'source-over';
                 }
 
                 ctx.restore();
