@@ -19,7 +19,8 @@
             --primary: #2c3e50;
             --secondary: #009999;
             --accent: #e74c3c;
-            --bg-main: #f4f7f6;
+            --bg-main: #fff8d6;
+            /* Sunlight theme */
             --card-bg: rgba(255, 255, 255, 0.95);
             --card-bg-solid: #ffffff;
             --text-main: #333333;
@@ -1365,9 +1366,9 @@
         }
 
         /* ISS true-transparent image generation wrapper */
-        let loadedSatellites = { iss_dark: null, iss_light: null };
-        
-        function extractTransparency(img, isDark) {
+        let loadedSatellites = { iss: null };
+
+        function extractTransparency(img) {
             let tCanvas = document.createElement('canvas');
             tCanvas.width = img.naturalWidth;
             tCanvas.height = img.naturalHeight;
@@ -1377,12 +1378,10 @@
             let data = imgData.data;
 
             for (let i = 0; i < data.length; i += 4) {
-               // Aggressive chroma-keying for the generated #000000 or #FFFFFF backgrounds
-               if (isDark) {
-                   if (data[i] < 35 && data[i+1] < 35 && data[i+2] < 35) data[i+3] = 0;
-               } else {
-                   if (data[i] > 220 && data[i+1] > 220 && data[i+2] > 220) data[i+3] = 0;
-               }
+                // Extract pure black background from the dark ISS render
+                if (data[i] < 45 && data[i + 1] < 45 && data[i + 2] < 45) {
+                    data[i + 3] = 0; // Make pure black area transparent
+                }
             }
             tCtx.putImageData(imgData, 0, 0);
             let transparentImg = new Image();
@@ -1391,15 +1390,11 @@
         }
 
         let imgDark = new Image();
-        imgDark.onload = () => { loadedSatellites.iss_dark = extractTransparency(imgDark, true); };
-        imgDark.src = 'images/satellites/iss_dark.png';
-
-        let imgLight = new Image();
-        imgLight.onload = () => { loadedSatellites.iss_light = extractTransparency(imgLight, false); };
-        imgLight.src = 'images/satellites/iss_light.png';
+        imgDark.onload = () => { loadedSatellites.iss = extractTransparency(imgDark); };
+        imgDark.src = 'images/satellites/iss_dark.png'; // Only load one canonical image to prevent color flipping
 
         function createSpaceship() {
-            if (!loadedSatellites.iss_dark || !loadedSatellites.iss_light) return; // Wait for both
+            if (!loadedSatellites.iss) return; // Wait for model
             if (spaceships.length >= 1) return; // Only 1 ISS at a time
 
             const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
@@ -1480,7 +1475,7 @@
                 ctx.translate(ship.x, ship.y);
                 ctx.rotate(ship.angle);
 
-                let img = isDark ? loadedSatellites.iss_dark : loadedSatellites.iss_light;
+                let img = loadedSatellites.iss; // Draw canonical image across both themes!
                 if (img && img.complete) { // Fully extracted transparent image
                     // Draw the perfectly cropped image centered
                     let aspectRatio = img.naturalHeight / img.naturalWidth;
