@@ -1,63 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>H Bharath Bhat | Portfolio</title>
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Andika&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andika&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
-            --primary: #2c3e50;       /* Dark Blue/Grey */
-            --secondary: #009999;     /* Siemens Teal */
-            --accent: #e74c3c;        /* Red Accent */
-            --light-bg: #f4f7f6;
-            --white: #ffffff;
+            --primary: #2c3e50;
+            --secondary: #009999;
+            --accent: #e74c3c;
+            --bg-main: #f4f7f6;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-bg-solid: #ffffff;
             --text-main: #333333;
             --text-light: #666666;
-            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* Glassmorphism shadow */
+            --text-header: #2c3e50;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --nav-text: #2c3e50;
+            --tag-bg: #eef2f7;
+            --tag-text: var(--primary);
+            --cert-border: #2c3e50;
+            --form-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: rgba(244, 247, 246, 0.95);
+            --footer-text: #333333;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            /* Background is handled by Canvas now */
+        [data-theme="dark"] {
+            --primary: #85c1e9;
+            --secondary: #48c9b0;
+            --accent: #ff7675;
+            --bg-main: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.95);
+            --card-bg-solid: #1e293b;
+            --text-main: #f8fafc;
+            --text-light: #cbd5e1;
+            --text-header: #ffffff;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+            --nav-text: #ffffff;
+            --tag-bg: #334155;
+            --tag-text: #f8fafc;
+            --cert-border: #48c9b0;
+            --form-bg: rgba(30, 41, 59, 0.95);
+            --footer-bg: rgba(15, 23, 42, 0.95);
+            --footer-text: #f8fafc;
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             background: transparent;
-            color: var(--text-main); 
-            font-family: 'Outfit', 'Andika', sans-serif; 
-            line-height: 1.6; 
+            color: var(--text-main);
+            font-family: 'Outfit', 'Andika', sans-serif;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             position: relative;
-            overflow-x: hidden; /* Prevent horizontal scroll when menu is hidden */
+            overflow-x: hidden;
         }
 
-        /* --- SPACE BACKGROUND CANVAS --- */
-        #space-canvas {
+        #vlsi-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Places it behind everything */
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+            background: var(--bg-main);
+            transition: background 0.5s ease;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
 
         /* --- NAVIGATION --- */
         nav {
-            background-color: rgba(44, 62, 80, 0.95); /* Slight transparency */
+            background-color: var(--nav-bg);
             backdrop-filter: blur(5px);
-            color: white;
+            color: var(--nav-text);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
@@ -65,54 +108,101 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .logo { font-size: 1.8rem; font-weight: 700; color: var(--secondary); }
-        .logo span { color: white; }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
 
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links li { 
-            cursor: pointer; 
-            padding: 8px 15px; 
-            border-radius: 4px; 
+        .logo span {
+            color: var(--nav-text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links li {
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 4px;
             font-weight: 500;
             font-size: 0.95rem;
         }
-        .nav-links li:hover, .nav-links li.active { background-color: rgba(255,255,255,0.1); color: var(--secondary); }
-        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: white; }
+
+        .nav-links li:hover,
+        .nav-links li.active {
+            background-color: var(--tag-bg);
+            color: var(--secondary);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--nav-text);
+        }
 
         /* --- SECTIONS --- */
         .page-section {
-            display: none; 
+            display: none;
             padding: 2rem 5%;
             max-width: 1200px;
             margin: 0 auto;
-            flex: 1; /* Pushes footer down */
+            flex: 1;
+            /* Pushes footer down */
             animation: fadeIn 0.4s ease-in-out;
             width: 100%;
         }
-        .page-section.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* --- TYPOGRAPHY --- */
-        h1 { color: var(--primary); margin-bottom: 0.5rem; font-size: 3rem; line-height: 1.2; }
-        /* Adjusted Headers for Dark Mode Contrast */
-        h2 { 
-            color: #ffffff; /* White text to stand out against space */
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            font-size: 2rem; 
-            margin: 40px 0 20px 0; 
-            border-bottom: 3px solid var(--secondary); 
-            display: inline-block; 
-            padding-bottom: 5px; 
+        h1 {
+            color: var(--text-header);
+            margin-bottom: 0.5rem;
+            font-size: 3rem;
+            line-height: 1.2;
         }
-        h3 { color: var(--primary); margin-bottom: 5px; font-size: 1.25rem; font-weight: 700; }
-        
+
+        h2 {
+            color: var(--text-header);
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+            border-bottom: 3px solid var(--secondary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--text-header);
+            margin-bottom: 5px;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
         .section-subtitle {
             font-size: 1.5rem;
-            color: #ddd; /* Lighter text for subtitle against space */
+            color: var(--text-light);
             margin: 30px 0 15px 0;
             font-weight: 600;
             border-left: 4px solid var(--accent);
@@ -121,7 +211,8 @@
 
         /* --- HERO HEADER --- */
         .hero {
-            background: rgba(255, 255, 255, 0.92); /* Glass effect */
+            background: var(--card-bg);
+            /* Glass effect */
             backdrop-filter: blur(5px);
             padding: 3rem;
             text-align: center;
@@ -130,9 +221,21 @@
             margin-bottom: 2rem;
             margin-top: 1rem;
         }
-        .hero-role { color: var(--secondary); font-weight: 600; font-size: 1.2rem; margin-bottom: 15px; display: block;}
-        .hero p { max-width: 700px; margin: 0 auto 20px auto; color: var(--text-light); }
-        
+
+        .hero-role {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            color: var(--text-light);
+        }
+
         .btn {
             display: inline-block;
             background: var(--secondary);
@@ -142,9 +245,22 @@
             font-weight: 600;
             margin: 10px 5px;
         }
-        .btn:hover { background: var(--primary); transform: translateY(-2px); }
-        .btn-outline { background: transparent; border: 2px solid var(--secondary); color: var(--secondary); }
-        .btn-outline:hover { background: var(--secondary); color: white; }
+
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+            color: white;
+        }
 
         /* --- GRID & CARDS --- */
         .grid-container {
@@ -154,34 +270,56 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95); /* Slight transparency */
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 10px;
             box-shadow: var(--card-shadow);
             border-left: 5px solid var(--secondary);
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-        .card:hover { 
-            transform: translateY(-5px); 
-            background: #ffffff; /* Solid white on hover */
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: var(--card-bg-solid);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
-        
-        .card-header { margin-bottom: 15px; }
-        .date { font-size: 0.85rem; color: #999; font-style: italic; margin-bottom: 10px; display: block; }
-        
-        .card ul { padding-left: 18px; margin-bottom: 15px; }
-        .card ul li { list-style-type: disc; margin-bottom: 5px; color: #555; font-size: 0.95rem; }
+
+        .card-header {
+            margin-bottom: 15px;
+        }
+
+        .date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card ul {
+            padding-left: 18px;
+            margin-bottom: 15px;
+        }
+
+        .card ul li {
+            list-style-type: disc;
+            margin-bottom: 5px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
 
         /* --- TAGS --- */
-        .tags { margin-top: auto; }
+        .tags {
+            margin-top: auto;
+        }
+
         .tag {
             display: inline-block;
-            background: #eef2f7;
-            color: var(--primary);
+            background: var(--tag-bg);
+            color: var(--tag-text);
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -198,7 +336,10 @@
             margin-top: 10px;
             display: inline-block;
         }
-        .project-link:hover { text-decoration: underline; }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
 
         /* --- CERTIFICATES LIST --- */
         .cert-grid {
@@ -207,45 +348,112 @@
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
+
         .cert-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 8px;
             box-shadow: var(--card-shadow);
-            border-top: 4px solid var(--primary);
+            border-top: 4px solid var(--cert-border);
         }
-        .cert-card img { height: 40px; margin-bottom: 10px; object-fit: contain; }
-        .cert-title { font-weight: 700; color: var(--primary); font-size: 1.1rem; line-height: 1.3; margin-bottom: 5px;}
-        .cert-provider { color: var(--secondary); font-size: 0.9rem; font-weight: 600; }
-        .cert-date { font-size: 0.8rem; color: #888; margin-bottom: 10px; display: block; }
+
+        .cert-card img {
+            height: 40px;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+
+        .cert-title {
+            font-weight: 700;
+            color: var(--text-header);
+            font-size: 1.1rem;
+            line-height: 1.3;
+            margin-bottom: 5px;
+        }
+
+        .cert-provider {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .cert-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: block;
+        }
 
         /* --- CONTACT FORM --- */
-        .contact-container { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 40px; 
-            border-radius: 10px; 
-            box-shadow: var(--card-shadow); 
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--form-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
         }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--primary); }
-        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; }
-        .form-control:focus { border-color: var(--secondary); outline: none; }
-        textarea.form-control { resize: vertical; min-height: 120px; }
-        .social-links { text-align: center; margin-top: 30px; }
-        .social-links a { font-size: 1.5rem; margin: 0 15px; color: var(--primary); }
-        .social-links a:hover { color: var(--secondary); }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-header);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--tag-bg);
+            border-radius: 5px;
+            font-family: inherit;
+            background: transparent;
+            color: var(--text-main);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            margin: 0 15px;
+            color: var(--primary);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
 
         /* --- FOOTER --- */
         footer {
-            background-color: rgba(44, 62, 80, 0.95);
-            color: white;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
             text-align: center;
             padding: 3rem 5%;
             margin-top: 4rem;
         }
-        .footer-content { max-width: 1200px; margin: 0 auto; }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .footer-links {
             margin-top: 20px;
             display: flex;
@@ -253,11 +461,13 @@
             gap: 25px;
             flex-wrap: wrap;
         }
+
         .footer-links a {
-            color: #ccc;
+            color: var(--footer-text);
             font-size: 0.95rem;
             cursor: pointer;
         }
+
         .footer-links a:hover {
             color: var(--secondary);
             text-decoration: underline;
@@ -265,81 +475,107 @@
 
         /* --- RESPONSIVE & MOBILE SIDE DRAWER --- */
         @media (max-width: 768px) {
-            .menu-toggle { 
-                display: block; 
-                z-index: 1002; /* Must be higher than nav-links */
+            .menu-toggle {
+                display: block;
+                z-index: 1002;
+                /* Must be higher than nav-links */
             }
-            
+
             /* The Side Drawer Style */
             .nav-links {
                 position: fixed;
                 right: 0;
                 top: 0;
                 height: 100vh;
-                width: 65%; /* Width of the drawer */
-                background-color: var(--primary); /* Solid color to cover content */
+                width: 65%;
+                /* Width of the drawer */
+                background-color: var(--nav-bg);
+                /* Solid color to cover content */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                padding-top: 100px; /* Space from top */
-                transform: translateX(100%); /* Start hidden off-screen */
+                padding-top: 100px;
+                /* Space from top */
+                transform: translateX(100%);
+                /* Start hidden off-screen */
                 transition: transform 0.4s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-                box-shadow: -5px 0 15px rgba(0,0,0,0.5); /* Shadow on left side */
-                z-index: 1001; /* Above sticky nav bar background */
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+                /* Shadow on left side */
+                z-index: 1001;
+                /* Above sticky nav bar background */
             }
 
-            .nav-links.nav-active { 
-                transform: translateX(0%); /* Slide In */
+            .nav-links.nav-active {
+                transform: translateX(0%);
+                /* Slide In */
             }
 
-            .nav-links li { 
+            .nav-links li {
                 opacity: 1;
                 width: 100%;
-                text-align: center; 
-                padding: 20px 0; 
-                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 font-size: 1.2rem;
             }
-            
-            h1 { font-size: 2.5rem; }
-            .footer-links { flex-direction: column; gap: 15px; }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <canvas id="space-canvas"></canvas>
+    <canvas id="vlsi-canvas"></canvas>
 
     <nav>
         <div class="logo"><span>H </span>Bharath <span>Bhat</span></div>
+
         <div class="menu-toggle" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
-        
+
         <ul class="nav-links" id="navLinks">
             <li onclick="showPage('home')" class="active">Home</li>
             <li onclick="showPage('projects')">Projects</li>
             <li onclick="showPage('certificates')">Certificates</li>
             <li onclick="showPage('contact')">Contact</li>
+            <li id="themeToggle" onclick="toggleTheme()" title="Toggle Theme"
+                style="display: flex; justify-content: center; align-items: center;">
+                <i class="fa-solid fa-moon" style="font-size: 1.2rem;"></i>
+            </li>
         </ul>
     </nav>
 
     <section id="home" class="page-section active">
         <div class="hero">
             <h1>H Bharath Bhat</h1>
-            <span class="hero-role">Student Intern | Siemens EDA</span>
-            
-            <p>Student Intern at <strong>Siemens EDA</strong> with a background in hardware design and digital logic. 
-            Skilled in <strong>SystemVerilog</strong>, <strong>UVM</strong>, and Ethernet protocol verification. 
-            B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.</p>
-            
-            <div class="tags" style="justify-content: center; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;">
+            <span class="hero-role">Product Engineer | Siemens EDA</span>
+
+            <p>Product Engineer at <strong>Siemens EDA</strong> with a background in hardware design and digital logic.
+                Skilled in <strong>SystemVerilog</strong>, <strong>UVM</strong>, and Ethernet protocol verification.
+                B.E. in Electronics and Communication Engineering from JSS Academy of Technical Education, Bengaluru.
+            </p>
+
+            <div class="tags"
+                style="justify-content: center; display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px;">
                 <span class="tag">SystemVerilog</span>
+                <span class="tag">Verilog</span>
                 <span class="tag">UVM</span>
+                <span class="tag">Python</span>
+                <span class="tag">C</span>
+
                 <!--<span class="tag">Linux</span>
                 <span class="tag">Ethernet</span>-->
-                <span class="tag">FPGA</span>
+
             </div>
 
             <a href="resume.pdf" class="btn"><i class="fa-solid fa-download"></i> Download Resume</a>
@@ -348,42 +584,104 @@
 
         <h2>Experience</h2>
         <div class="grid-container">
+
             <div class="card">
-                <div class="card-header">
-                    <h3>Student Intern @ Siemens EDA</h3>
-                    <span class="date">July 2025 – Present | Onsite</span>
+                <div class="card-header"
+                    style="border-bottom: 2px solid var(--tag-bg); padding-bottom: 15px; margin-bottom: 20px;">
+                    <h3>Siemens EDA</h3>
+                    <span class="date" style="margin-bottom: 0;">July 2025 – Present | Onsite</span>
                 </div>
-                <ul>
-                    <li>Getting trained on <strong>APB Avery VIP</strong>.</li>
-                    <li>Built a UVM verification environment for a Memory Controller.</li>
-                    <li>Exploring Ethernet PHY configurations (1000BASE-T1 to 10G) and AXI/APB protocols.</li>
-                </ul>
-                <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span class="tag">APB Avery VIP</span></div>
+
+                <div style="padding-left: 20px;">
+                    <!-- Product Engineer Role -->
+                    <div style="position: relative; padding-bottom: 25px;">
+                        <div
+                            style="position: absolute; left: -21px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--secondary); z-index: 2;">
+                        </div>
+                        <div
+                            style="position: absolute; left: -17px; top: 11px; bottom: -11px; width: 2px; background: var(--text-light); opacity: 0.5; z-index: 1;">
+                        </div>
+
+                        <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Product Engineer
+                        </h4>
+                        <span class="date">March 2026 – Present</span>
+                        <ul style="margin-bottom: 10px;">
+                            <li>Resolving technical queries and providing support for the Avery Verification IP (VIP)
+                                for Ethernet protocols.</li>
+                        </ul>
+                        <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span></div>
+                    </div>
+
+                    <!-- Student Intern Role -->
+                    <div style="position: relative;">
+                        <!-- Last role dot, so no vertical line below it -->
+                        <div
+                            style="position: absolute; left: -21px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--text-light); z-index: 2;">
+                        </div>
+
+                        <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Student Intern
+                        </h4>
+                        <span class="date">July 2025 – Feb 2026</span>
+                        <ul style="margin-bottom: 10px;">
+                            <li>Got trained on <strong>APB Avery VIP</strong>.</li>
+                            <li>Built a UVM verification environment for a Memory Controller.</li>
+                            <li>Exploring Ethernet PHY configurations (1000BASE-T1 to 10G) and AXI/APB protocols.</li>
+                        </ul>
+                        <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span
+                                class="tag">APB Avery VIP</span></div>
+                    </div>
+                </div>
             </div>
 
             <div class="card">
-                <div class="card-header">
-                    <h3>Research Intern @ IISc (CSA Dept)</h3>
-                    <span class="date">Sep 2024 – Jan 2025 | Hybrid</span>
+                <div class="card-header"
+                    style="border-bottom: 2px solid var(--tag-bg); padding-bottom: 15px; margin-bottom: 20px;">
+                    <h3>Indian Institute of Science (IISc)</h3>
+                    <span class="date" style="margin-bottom: 0;">Nov 2023 – Jan 2025</span>
                 </div>
-                <ul>
-                    <li>Guided by <strong>Dr. Sumit Kumar Mandal</strong>.</li>
-                    <li>Conducted comparative analysis of Matrix Multipliers.</li>
-                    <li>Focus on Energy Efficient Hardware Accelerators for ML Algorithms.</li>
-                </ul>
-                <div class="tags"><span class="tag">RTL Design</span><span class="tag">Verilog</span><span class="tag">C</span></div>
-            </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3>Research Intern @ IISc (FIST Group)</h3>
-                    <span class="date">Nov 2023 – Apr 2024 | Onsite</span>
+                <div style="padding-left: 20px;">
+                    <!-- CSA Dept Role -->
+                    <div style="position: relative; padding-bottom: 25px;">
+                        <div
+                            style="position: absolute; left: -21px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--text-light); z-index: 2;">
+                        </div>
+                        <div
+                            style="position: absolute; left: -17px; top: 11px; bottom: -11px; width: 2px; background: var(--text-light); opacity: 0.5; z-index: 1;">
+                        </div>
+
+                        <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Research Intern
+                            (CSA Dept)</h4>
+                        <span class="date">Sep 2024 – Jan 2025 | Hybrid</span>
+                        <ul style="margin-bottom: 10px;">
+                            <li>Conducted comparative analysis of Matrix Multipliers.</li>
+                            <li>Guided by <strong>Dr. Sumit Kumar Mandal</strong>.</li>
+                        </ul>
+                        <div class="tags"><span class="tag">RTL Design</span><span class="tag">Verilog</span><span
+                                class="tag">C</span></div>
+                    </div>
+
+                    <!-- FIST Group Role -->
+                    <div style="position: relative;">
+                        <!-- Last role dot, so no vertical line below it -->
+                        <div
+                            style="position: absolute; left: -21px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--text-light); z-index: 2;">
+                        </div>
+
+                        <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Research Intern
+                            (FIST Group)</h4>
+                        <span class="date">Nov 2023 – Apr 2024 | Onsite</span>
+                        <ul style="margin-bottom: 10px;">
+                            <li>Worked on Energy-Efficient Hardware Accelerators for Machine Learning.</li>
+                            <li>Contributed to IEEE Journal paper on <a
+                                    href="https://ieeexplore.ieee.org/document/10596278#citations" target="_blank"
+                                    style="color: var(--secondary); font-weight: 600;">Heterogeneous 2.5D Systems</a>.
+                            </li>
+                        </ul>
+                        <div class="tags"><span class="tag">IEEE Publication</span><span class="tag">LLM</span><span
+                                class="tag">Hardware</span></div>
+                    </div>
                 </div>
-                <ul>
-                    <li>Worked on Energy-Efficient Hardware Accelerators for Machine Learning.</li>
-                    <li>Contributed to IEEE Journal paper on Heterogeneous 2.5D Systems.</li>
-                </ul>
-                <div class="tags"><span class="tag">IEEE Publication</span><span class="tag">LLM</span><span class="tag">Hardware</span></div>
             </div>
         </div>
 
@@ -395,8 +693,8 @@
                     <span class="date">2021 – 2025</span>
                 </div>
                 <p><strong>B.E. in Electronics & Communication</strong></p>
-                <p style="font-size: 0.9rem; color: #555;">Aggregate: 8.83 CGPA</p>
-                <p style="font-size: 0.9rem; color: #555;">Dr. Vishnuvardhan Road, Bengaluru 560060</p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Aggregate: 8.83 CGPA</p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Dr. Vishnuvardhan Road, Bengaluru 560060</p>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -404,7 +702,7 @@
                     <span class="date">Completed 2020</span>
                 </div>
                 <p><strong>Pre-University, PCMB</strong></p>
-                <p style="font-size: 0.9rem; color: #555;">Nagarbhavi, Bengaluru 560073</p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Nagarbhavi, Bengaluru 560073</p>
             </div>
             <div class="card">
                 <div class="card-header">
@@ -412,7 +710,7 @@
                     <span class="date">Completed 2018</span>
                 </div>
                 <p><strong>Secondary Schooling</strong></p>
-                <p style="font-size: 0.9rem; color: #555;">Ullal, Bengaluru 560056</p>
+                <p style="font-size: 0.9rem; color: var(--text-light);">Ullal, Bengaluru 560056</p>
             </div>
         </div>
     </section>
@@ -420,7 +718,7 @@
     <section id="projects" class="page-section">
         <h2>Projects</h2>
         <div class="grid-container">
-            
+
             <div class="card">
                 <div class="card-header">
                     <h3>UVM Testbench for Memory Controller</h3>
@@ -443,7 +741,8 @@
                     <li>Implemented sorting algorithms in Verilog.</li>
                     <li>Synthesized using Cadence 90nm and analyzed on PYNQ FPGA.</li>
                 </ul>
-                <div class="tags"><span class="tag">FPGA</span><span class="tag">Verilog</span><span class="tag">Cadence</span></div>
+                <div class="tags"><span class="tag">FPGA</span><span class="tag">Verilog</span><span
+                        class="tag">Cadence</span></div>
             </div>
 
             <div class="card">
@@ -456,8 +755,10 @@
                     <li>Developed Verilog implementation and synthesized using <strong>Cadence Genus</strong>.</li>
                     <li>Automated Verilog code generation using custom Python script.</li>
                 </ul>
-                <div class="tags"><span class="tag">Verilog</span><span class="tag">C</span><span class="tag">Python</span></div>
-                <a href="https://github.com/hbharathbhat/cussen" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
+                <div class="tags"><span class="tag">Verilog</span><span class="tag">C</span><span
+                        class="tag">Python</span></div>
+                <a href="https://github.com/hbharathbhat/cussen" target="_blank" class="project-link"><i
+                        class="fa-brands fa-github"></i> View Repository</a>
             </div>
 
             <div class="card">
@@ -466,11 +767,13 @@
                     <span class="date">June 2024</span>
                 </div>
                 <ul>
-                    <li>Hardware Implementation of Minimally Biased Multipliers for Approximate Integer Multiplication.</li>
+                    <li>Hardware Implementation of Minimally Biased Multipliers for Approximate Integer Multiplication.
+                    </li>
                     <li>Synthesized using tsmc90 technology library on <strong>Cadence Genus</strong>.</li>
                 </ul>
                 <div class="tags"><span class="tag">Verilog</span><span class="tag">Cadence Genus</span></div>
-                <a href="https://github.com/hbharathbhat/minimally_biased_multipliers" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="https://github.com/hbharathbhat/minimally_biased_multipliers" target="_blank"
+                    class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
             </div>
 
             <div class="card">
@@ -483,10 +786,13 @@
                     <li>Developed on ARIES V3.0 Development Board.</li>
                     <li>Integrated electronic components for wireless control via Bluetooth (HC-05).</li>
                 </ul>
-                <div class="tags"><span class="tag">Embedded C</span><span class="tag">Arduino UNO</span><span class="tag">Aries V3.0</span></div>
+                <div class="tags"><span class="tag">Embedded C</span><span class="tag">Arduino UNO</span><span
+                        class="tag">Aries V3.0</span></div>
                 <div>
-                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Github</a> | 
-                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser/blob/main/cdac_tech_fusion_cruiser.pdf" target="_blank" class="project-link"><i class="fa-solid fa-file-pdf"></i> Report</a>
+                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser" target="_blank"
+                        class="project-link"><i class="fa-brands fa-github"></i> Github</a> |
+                    <a href="https://github.com/hbharathbhat/cdac_vega_tech_fusion_cruiser/blob/main/cdac_tech_fusion_cruiser.pdf"
+                        target="_blank" class="project-link"><i class="fa-solid fa-file-pdf"></i> Report</a>
                 </div>
             </div>
 
@@ -499,11 +805,12 @@
                     <li>Hobby project featuring flip-flops, adders, latches, muxes, ALUs, counters, RAMs, and ROMs.</li>
                 </ul>
                 <div class="tags"><span class="tag">Verilog</span><span class="tag">RTL Design</span></div>
-                <a href="https://github.com/hbharathbhat/rtl_codes" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> View Repository</a>
+                <a href="https://github.com/hbharathbhat/rtl_codes" target="_blank" class="project-link"><i
+                        class="fa-brands fa-github"></i> View Repository</a>
             </div>
 
             <div class="section-subtitle">Participation</div>
-             <div class="card">
+            <div class="card">
                 <div class="card-header">
                     <h3>Police Hackathon 2k23</h3>
                     <span class="date">Feb 2023</span>
@@ -532,26 +839,36 @@
 
     <section id="certificates" class="page-section">
         <h2>Certifications & Courses</h2>
-        
+
         <div class="section-subtitle">Hardware & VLSI Design</div>
         <div class="cert-grid">
+
+            <div class="cert-card">
+                <div class="cert-title">Verification Series Part 1 to 4</div>
+                <div class="cert-provider">Udemy </div>
+                <span class="cert-date">Apr 2026</span>
+                <span style="font-size:0.8rem; color:var(--text-light);">(Link pending)</span>
+            </div>
+
             <div class="cert-card">
                 <div class="cert-title">Digital Design with Verilog</div>
                 <div class="cert-provider">NPTEL</div>
                 <span class="cert-date">Apr 2024</span>
-                <span style="font-size:0.8rem; color:#aaa;">(Link pending)</span>
+                <span style="font-size:0.8rem; color:var(--text-light);">(Link pending)</span>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Hardware Modelling using Verilog</div>
                 <div class="cert-provider">NPTEL</div>
                 <span class="cert-date">Oct 2023</span>
-                <a href="https://drive.google.com/file/d/1WToUotf_T8ti56qEDsFpZRZ9wtvnmryg/view?usp=sharing" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1WToUotf_T8ti56qEDsFpZRZ9wtvnmryg/view?usp=sharing"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Signal Processing Onramp</div>
                 <div class="cert-provider">Mathworks</div>
                 <span class="cert-date">July 2023</span>
-                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=19c115ae-da37-4ba9-b145-745df566529c&" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=19c115ae-da37-4ba9-b145-745df566529c&"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
         </div>
 
@@ -561,43 +878,50 @@
                 <div class="cert-title">Programming, Data Structures & Algorithms using Python</div>
                 <div class="cert-provider">NPTEL</div>
                 <span class="cert-date">Sep 2024</span>
-                <a href="https://drive.google.com/file/d/1UE6elcHJQ9vf4DC2S28CgRlQSS7OPDtc/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1UE6elcHJQ9vf4DC2S28CgRlQSS7OPDtc/view?usp=drivesdk"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Introduction to Programming in C</div>
                 <div class="cert-provider">NPTEL</div>
                 <span class="cert-date">Apr 2024</span>
-                <a href="https://drive.google.com/file/d/1PmnmPy_maluFiTsqXBzx_cwAxE-6KoNY/view?usp=sharing" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1PmnmPy_maluFiTsqXBzx_cwAxE-6KoNY/view?usp=sharing"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Programming in C</div>
                 <div class="cert-provider">NPTEL</div>
                 <span class="cert-date">Oct 2023</span>
-                <a href="https://drive.google.com/file/d/1EaVxSq_Taggk8TAMQahWcay7-Ns6eZqm/view?usp=drive_link" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1EaVxSq_Taggk8TAMQahWcay7-Ns6eZqm/view?usp=drive_link"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">C Programming Bootcamp</div>
                 <div class="cert-provider">Udemy</div>
                 <span class="cert-date">Dec 2023</span>
-                <a href="https://www.udemy.com/certificate/UC-0b9def1a-3c91-4800-8c1f-8a5cd1847f98/" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://www.udemy.com/certificate/UC-0b9def1a-3c91-4800-8c1f-8a5cd1847f98/" target="_blank"
+                    class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Foundation of Cybersecurity</div>
                 <div class="cert-provider">Google / Coursera</div>
                 <span class="cert-date">Nov 2023</span>
-                <a href="https://www.coursera.org/account/accomplishments/certificate/3ZZLJG7GWXQ3" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://www.coursera.org/account/accomplishments/certificate/3ZZLJG7GWXQ3" target="_blank"
+                    class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Play It Safe: Manage Security Risks</div>
                 <div class="cert-provider">Google / Coursera</div>
                 <span class="cert-date">Dec 2023</span>
-                <a href="https://coursera.org/share/28c6d39a5dc8e00cc5f7c7067b449aed" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://coursera.org/share/28c6d39a5dc8e00cc5f7c7067b449aed" target="_blank"
+                    class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Python Basics</div>
                 <div class="cert-provider">Infosys Springboard</div>
                 <span class="cert-date">Nov 2022</span>
-                <a href="https://drive.google.com/file/d/1Iy8gcyR3WyuIvN-raDjWu5rMp_W2f2-9/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1Iy8gcyR3WyuIvN-raDjWu5rMp_W2f2-9/view?usp=drivesdk"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
         </div>
 
@@ -607,31 +931,36 @@
                 <div class="cert-title">Simulink Onramp</div>
                 <div class="cert-provider">Mathworks</div>
                 <span class="cert-date">July 2023</span>
-                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=c769bab0-13a2-4228-bcc6-a450ddbad953&" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=c769bab0-13a2-4228-bcc6-a450ddbad953&"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Matlab Onramp</div>
                 <div class="cert-provider">Mathworks</div>
                 <span class="cert-date">July 2023</span>
-                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8fb21a8d-d76d-46f5-b883-ae07daf65d3d&" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=8fb21a8d-d76d-46f5-b883-ae07daf65d3d&"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">CSS3</div>
                 <div class="cert-provider">Infosys Springboard</div>
                 <span class="cert-date">Feb 2023</span>
-                <a href="https://drive.google.com/file/d/1Mak_5Y4Ls-sWtkOnikab0tAwJOu8u0NY/view?usp=share_link" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1Mak_5Y4Ls-sWtkOnikab0tAwJOu8u0NY/view?usp=share_link"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">HTML5 - The Language</div>
                 <div class="cert-provider">Infosys Springboard</div>
                 <span class="cert-date">Dec 2022</span>
-                <a href="https://drive.google.com/file/d/1Iy3ALD2XhR5X4l0duwBtigVLG8Njk8yJ/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1Iy3ALD2XhR5X4l0duwBtigVLG8Njk8yJ/view?usp=drivesdk"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
             <div class="cert-card">
                 <div class="cert-title">Data Analytics Using Power BI</div>
                 <div class="cert-provider">Vodafone Idea Foundation</div>
                 <span class="cert-date">Oct 2022</span>
-                <a href="https://drive.google.com/file/d/1-vKK5opzUAndvXA-IW4W3c-gCBmb5Utz/view?usp=drivesdk" target="_blank" class="project-link">View Certificate</a>
+                <a href="https://drive.google.com/file/d/1-vKK5opzUAndvXA-IW4W3c-gCBmb5Utz/view?usp=drivesdk"
+                    target="_blank" class="project-link">View Certificate</a>
             </div>
         </div>
 
@@ -678,13 +1007,16 @@
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" class="form-control" placeholder="Write your message here..." required></textarea>
+                    <textarea id="message" class="form-control" placeholder="Write your message here..."
+                        required></textarea>
                 </div>
-                <button type="submit" class="btn" style="border:none; width:100%; cursor:pointer;">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn" style="border:none; width:100%; cursor:pointer;">Send Message <i
+                        class="fa-solid fa-paper-plane"></i></button>
             </form>
 
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank"><i
+                        class="fa-brands fa-linkedin"></i></a>
                 <a href="https://github.com/hbharathbhat" target="_blank"><i class="fa-brands fa-github"></i></a>
                 <a href="mailto:bharathbhat2805@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             </div>
@@ -707,11 +1039,11 @@
     <script>
         /* --- NAVIGATION LOGIC --- */
         const navLinks = document.getElementById('navLinks');
-        
+
         function toggleMenu() {
             // Toggle the 'nav-active' class to slide the menu in/out
             navLinks.classList.toggle('nav-active');
-            
+
             // Optional: Animate hamburger icon (turning it into an X)
             // You can add logic here if you want the icon to change
         }
@@ -724,14 +1056,14 @@
             links.forEach(link => link.classList.remove('active'));
 
             document.getElementById(pageId).classList.add('active');
-            
+
             const currentLink = Array.from(links).find(l => l.getAttribute('onclick').includes(pageId));
-            if(currentLink) currentLink.classList.add('active');
+            if (currentLink) currentLink.classList.add('active');
 
             // Close the menu when a link is clicked
             navLinks.classList.remove('nav-active');
-            
-            window.scrollTo(0,0);
+
+            window.scrollTo(0, 0);
         }
 
         function sendMail(e) {
@@ -742,69 +1074,273 @@
 
             const subject = `Portfolio Contact from ${name}`;
             const body = `Name: ${name}%0D%0AEmail: ${senderEmail}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-            
+
             window.location.href = `mailto:bharathbhat2805@gmail.com?subject=${subject}&body=${body}`;
         }
 
-        /* --- SPACE BACKGROUND LOGIC --- */
-        const canvas = document.getElementById('space-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        /* --- THEME TOGGLE LOGIC --- */
+        function toggleTheme() {
+            const body = document.documentElement;
+            const currentTheme = body.getAttribute('data-theme');
+            const icon = document.querySelector('#themeToggle i');
 
-        const stars = [];
-        const numStars = 200;
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fa-solid fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fa-solid fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
 
-        // Resize handler
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Auto-check theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.querySelector('#themeToggle i').className = 'fa-solid fa-sun';
+            }
         });
 
-        class Star {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5;
-                this.speed = Math.random() * 0.5 + 0.1; // Speed of movement
+        /* --- SILICON WAFER GRID SCANNER BACKGROUND LOGIC --- */
+        const canvas = document.getElementById('vlsi-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const gridSize = 50;
+        let scanPos = 0;
+        let scanDir = 1;
+
+        let faults = [];
+        let circuits = []; // New Circuit Traces
+        let components = []; // Electronic Components
+        const componentTypes = ['OPAMP', 'MOSFET', 'AND', 'OR', 'RES', 'CAP', 'IND'];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initWafer();
+        }
+        window.addEventListener('resize', resize);
+
+        function initWafer() {
+            faults = [];
+            circuits = [];
+            components = [];
+            let cols = Math.floor(canvas.width / gridSize);
+            let rows = Math.floor(canvas.height / gridSize);
+
+            // Generate structural circuit traces (embedded in the silicon)
+            const numCircuits = Math.floor((cols * rows) * 0.25); // 25% density
+            for (let i = 0; i < numCircuits; i++) {
+                let startX = Math.floor(Math.random() * cols) * gridSize;
+                let startY = Math.floor(Math.random() * rows) * gridSize;
+
+                // Traces go either horizontally or vertically for 1 to 4 grid units
+                let length = (Math.floor(Math.random() * 4) + 1) * gridSize;
+                let isHoriz = Math.random() > 0.5;
+
+                circuits.push({
+                    x: startX,
+                    y: startY,
+                    w: isHoriz ? length : 0,
+                    h: isHoriz ? 0 : length,
+                    hasPad: Math.random() > 0.5 // some end with a metallic pad
+                });
             }
 
-            update() {
-                this.y -= this.speed; // Move Upwards
-                // If star goes off screen, reset to bottom
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
+            // Generate Electronic Components
+            const numComps = Math.floor((cols * rows) * 0.04); // 4% density
+            for (let i = 0; i < numComps; i++) {
+                components.push({
+                    x: Math.floor(Math.random() * cols) * gridSize,
+                    y: Math.floor(Math.random() * rows) * gridSize,
+                    type: componentTypes[Math.floor(Math.random() * componentTypes.length)]
+                });
             }
 
-            draw() {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+            // Randomly place "faults" (verification hotspots)
+            for (let i = 0; i < (cols * rows) * 0.03; i++) {
+                faults.push({
+                    x: Math.floor(Math.random() * cols) * gridSize,
+                    y: Math.floor(Math.random() * rows) * gridSize,
+                    intensity: Math.random()
+                });
             }
         }
 
-        function initStars() {
-            for (let i = 0; i < numStars; i++) {
-                stars.push(new Star());
-            }
-        }
+        resize();
 
-        function animateStars() {
+        function drawWafer() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => {
-                star.update();
-                star.draw();
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+            const gridColor = isDark ? 'rgba(72, 201, 176, 0.08)' : 'rgba(0, 153, 153, 0.08)';
+            const scanColor = isDark ? 'rgba(72, 201, 176, 0.5)' : 'rgba(0, 153, 153, 0.4)';
+            const scanGlow = isDark ? 'rgba(72, 201, 176, 0.15)' : 'rgba(0, 153, 153, 0.1)';
+            const faultColor = isDark ? 'rgba(255, 118, 117, 0.6)' : 'rgba(231, 76, 60, 0.6)';
+
+            // Draw Silicon Die Grid
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = gridColor;
+            ctx.beginPath();
+
+            for (let x = 0; x <= canvas.width; x += gridSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+            }
+            for (let y = 0; y <= canvas.height; y += gridSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+            }
+            ctx.stroke();
+
+            // Verification Scan Bar Overlapping
+            scanPos += 2 * scanDir;
+            if (scanPos > canvas.height + 200) {
+                scanDir = -1;
+                initWafer();
+            } else if (scanPos < -200) {
+                scanDir = 1;
+                initWafer();
+            }
+
+            // Draw embedded circuit traces (glows when scanned)
+            ctx.lineWidth = 2.5;
+            circuits.forEach(c => {
+                let centerY = c.y + (c.h / 2);
+                let dist = Math.abs(centerY - scanPos);
+
+                let glowMultiplier = 0;
+                if (dist < 150) {
+                    glowMultiplier = Math.max(0, 1 - (dist / 150));
+                }
+
+                if (glowMultiplier > 0) {
+                    ctx.strokeStyle = isDark ? `rgba(72, 201, 176, ${0.15 + 0.5 * glowMultiplier})` : `rgba(0, 153, 153, ${0.15 + 0.5 * glowMultiplier})`;
+                    ctx.shadowBlur = 6 * glowMultiplier;
+                    ctx.shadowColor = ctx.strokeStyle;
+                } else {
+                    ctx.strokeStyle = isDark ? 'rgba(72, 201, 176, 0.1)' : 'rgba(0, 153, 153, 0.1)';
+                    ctx.shadowBlur = 0;
+                }
+
+                ctx.beginPath();
+                ctx.moveTo(c.x, c.y);
+                ctx.lineTo(c.x + c.w, c.y + c.h);
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+
+                // Draw end Pad
+                if (c.hasPad) {
+                    ctx.fillStyle = ctx.strokeStyle;
+                    let padX = c.w > 0 ? c.x + c.w : c.x;
+                    let padY = c.h > 0 ? c.y + c.h : c.y;
+                    ctx.fillRect(padX - 4, padY - 4, 8, 8);
+                }
             });
-            requestAnimationFrame(animateStars);
+
+            // Draw Electronic Components
+            components.forEach(comp => {
+                let dist = Math.abs(comp.y - scanPos);
+                let glowMultiplier = 0;
+                if (dist < 150) {
+                    glowMultiplier = Math.max(0, 1 - (dist / 150));
+                }
+
+                if (glowMultiplier > 0) {
+                    ctx.strokeStyle = isDark ? `rgba(72, 201, 176, ${0.15 + 0.65 * glowMultiplier})` : `rgba(0, 153, 153, ${0.15 + 0.65 * glowMultiplier})`;
+                    ctx.shadowBlur = 8 * glowMultiplier;
+                    ctx.shadowColor = ctx.strokeStyle;
+                } else {
+                    ctx.strokeStyle = isDark ? 'rgba(72, 201, 176, 0.1)' : 'rgba(0, 153, 153, 0.1)';
+                    ctx.shadowBlur = 0;
+                }
+
+                ctx.lineWidth = 2;
+                let x = comp.x;
+                let y = comp.y;
+                let size = 12;
+
+                if (comp.type === 'OPAMP') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.lineTo(x + size, y); ctx.lineTo(x - size, y + size); ctx.closePath(); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - size / 2); ctx.lineTo(x - size, y - size / 2); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + size / 2); ctx.lineTo(x - size, y + size / 2); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
+                } else if (comp.type === 'MOSFET') {
+                    ctx.beginPath(); ctx.moveTo(x - size / 4, y - size); ctx.lineTo(x - size / 4, y + size); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size / 2, y - size * 0.8); ctx.lineTo(x - size / 2, y + size * 0.8); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size / 4, y - size * 0.8); ctx.lineTo(x + size / 2, y - size * 0.8); ctx.lineTo(x + size / 2, y - size * 1.5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size / 4, y + size * 0.8); ctx.lineTo(x + size / 2, y + size * 0.8); ctx.lineTo(x + size / 2, y + size * 1.5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size / 2, y); ctx.lineTo(x - size * 1.2, y); ctx.stroke();
+                } else if (comp.type === 'AND') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.lineTo(x, y - size); ctx.arc(x, y, size, -Math.PI / 2, Math.PI / 2); ctx.lineTo(x - size, y + size); ctx.closePath(); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - 5); ctx.lineTo(x - size, y - 5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + 5); ctx.lineTo(x - size, y + 5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
+                } else if (comp.type === 'OR') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.quadraticCurveTo(x, y - size, x + size, y); ctx.quadraticCurveTo(x, y + size, x - size, y + size); ctx.quadraticCurveTo(x - size / 2, y, x - size, y - size); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - 5); ctx.lineTo(x - size + 3, y - 5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + 5); ctx.lineTo(x - size + 3, y + 5); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
+                } else if (comp.type === 'RES') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - size * 0.7, y); ctx.lineTo(x - size * 0.5, y - size / 2); ctx.lineTo(x - size * 0.1, y + size / 2); ctx.lineTo(x + size * 0.3, y - size / 2); ctx.lineTo(x + size * 0.7, y + size / 2); ctx.lineTo(x + size * 0.9, y); ctx.lineTo(x + size, y); ctx.stroke();
+                } else if (comp.type === 'CAP') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - 2, y); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x - 2, y - size / 2); ctx.lineTo(x - 2, y + size / 2); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + 2, y - size / 2); ctx.lineTo(x + 2, y + size / 2); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + 2, y); ctx.lineTo(x + size, y); ctx.stroke();
+                } else if (comp.type === 'IND') {
+                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - size * 0.8, y); ctx.stroke();
+                    ctx.beginPath(); ctx.arc(x - size * 0.5, y, size * 0.3, Math.PI, 0); ctx.stroke();
+                    ctx.beginPath(); ctx.arc(x + size * 0.1, y, size * 0.3, Math.PI, 0); ctx.stroke();
+                    ctx.beginPath(); ctx.arc(x + size * 0.7, y, size * 0.3, Math.PI, 0); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 4, y); ctx.stroke();
+                }
+                ctx.shadowBlur = 0;
+            });
+
+            // Draw Scanner Beam (Gradient)
+            let grad = ctx.createLinearGradient(0, scanPos - 100, 0, scanPos + 100);
+            if (scanDir === 1) {
+                grad.addColorStop(0, 'transparent');
+                grad.addColorStop(0.9, scanGlow);
+                grad.addColorStop(1, scanColor);
+            } else {
+                grad.addColorStop(0, scanColor);
+                grad.addColorStop(0.1, scanGlow);
+                grad.addColorStop(1, 'transparent');
+            }
+
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, scanPos - 100, canvas.width, 200);
+
+            // Draw Scanner Line Highlight
+            ctx.fillStyle = scanColor;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = scanColor;
+            ctx.fillRect(0, scanDir === 1 ? scanPos + 98 : scanPos - 100, canvas.width, 2);
+            ctx.shadowBlur = 0;
+
+            // Draw Verification Faults
+            faults.forEach(fault => {
+                const dist = Math.abs((fault.y + gridSize / 2) - scanPos);
+                if (dist < 150) {
+                    const alpha = Math.max(0, 1 - (dist / 150));
+                    ctx.fillStyle = faultColor;
+                    ctx.globalAlpha = alpha * fault.intensity;
+                    ctx.fillRect(fault.x + 2, fault.y + 2, gridSize - 4, gridSize - 4);
+                    ctx.globalAlpha = 1.0;
+                }
+            });
+
+            requestAnimationFrame(drawWafer);
         }
 
-        initStars();
-        animateStars();
+        drawWafer();
     </script>
 
 </body>
+
 </html>
