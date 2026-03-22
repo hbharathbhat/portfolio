@@ -384,6 +384,123 @@
             display: block;
         }
 
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            background: var(--card-bg);
+            border: 1px solid var(--tag-bg);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            font-weight: 600;
+            color: var(--text-header);
+            text-align: center;
+        }
+
+        .upload-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 250px;
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px;
+        }
+
+        [data-theme="dark"] .upload-placeholder {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- LIGHTBOX --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            z-index: 2001;
+        }
+
+        .lightbox-prev {
+            left: 10px;
+        }
+
+        .lightbox-next {
+            right: 10px;
+        }
+
+        .lightbox-caption {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+        }
+
         /* --- CONTACT FORM --- */
         .contact-container {
             max-width: 600px;
@@ -547,10 +664,12 @@
             <li onclick="showPage('home')" class="active">Home</li>
             <li onclick="showPage('projects')">Projects</li>
             <li onclick="showPage('certificates')">Certificates</li>
+            <li onclick="showPage('gallery')">Gallery</li>
             <li onclick="showPage('contact')">Contact</li>
             <li id="themeToggle" onclick="toggleTheme()" title="Toggle Theme"
-                style="display: flex; justify-content: center; align-items: center;">
-                <i class="fa-solid fa-moon" style="font-size: 1.2rem;"></i>
+                style="display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; overflow: hidden; border-radius: 50%;">
+                <img id="themeIcon" src="images/theme/moon.png" alt="Theme Toggle"
+                    style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover;">
             </li>
         </ul>
     </nav>
@@ -609,7 +728,8 @@
                             <li>Resolving technical queries and providing support for the Avery Verification IP (VIP)
                                 for Ethernet protocols.</li>
                         </ul>
-                        <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span></div>
+                        <div class="tags"><span class="tag">SystemVerilog</span><span class="tag">UVM</span><span
+                                class="tag">Ethernet Protocol</span></div>
                     </div>
 
                     <!-- Student Intern Role -->
@@ -636,7 +756,7 @@
             <div class="card">
                 <div class="card-header"
                     style="border-bottom: 2px solid var(--tag-bg); padding-bottom: 15px; margin-bottom: 20px;">
-                    <h3>Indian Institute of Science (IISc)</h3>
+                    <h3>Department of CSA, Indian Institute of Science (IISc)</h3>
                     <span class="date" style="margin-bottom: 0;">Nov 2023 – Jan 2025</span>
                 </div>
 
@@ -651,11 +771,11 @@
                         </div>
 
                         <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Research Intern
-                            (CSA Dept)</h4>
+                        </h4>
                         <span class="date">Sep 2024 – Jan 2025 | Hybrid</span>
                         <ul style="margin-bottom: 10px;">
                             <li>Conducted comparative analysis of Matrix Multipliers.</li>
-                            <li>Guided by <strong>Dr. Sumit Kumar Mandal</strong>.</li>
+                            <li>Guided by <strong>Dr. Sumit Kumar Mandal</strong> at the <strong>FIST Lab</strong>.</li>
                         </ul>
                         <div class="tags"><span class="tag">RTL Design</span><span class="tag">Verilog</span><span
                                 class="tag">C</span></div>
@@ -669,7 +789,7 @@
                         </div>
 
                         <h4 style="color: var(--text-header); font-size: 1.1rem; margin-bottom: 2px;">Research Intern
-                            (FIST Group)</h4>
+                        </h4>
                         <span class="date">Nov 2023 – Apr 2024 | Onsite</span>
                         <ul style="margin-bottom: 10px;">
                             <li>Worked on Energy-Efficient Hardware Accelerators for Machine Learning.</li>
@@ -711,6 +831,24 @@
                 </div>
                 <p><strong>Secondary Schooling</strong></p>
                 <p style="font-size: 0.9rem; color: var(--text-light);">Ullal, Bengaluru 560056</p>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 40px;">Hobbies</h2>
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-header" style="margin-bottom: 15px;">
+                    <h3>Trekking</h3>
+                </div>
+                <p style="margin-bottom: 15px;">Passionate about exploring nature and high-altitude trails. Notable
+                    places I have trekked include:</p>
+                <div class="tags">
+                    <span class="tag">Kumaraparvatha</span>
+                    <span class="tag">Makalidurga</span>
+                    <span class="tag">Bandaje Arbhi Falls</span>
+                    <span class="tag">Narasimha Parvatha</span>
+                    <span class="tag">Ramadevara Betta</span>
+                </div>
             </div>
         </div>
     </section>
@@ -993,6 +1131,85 @@
         </div>
     </section>
 
+    <section id="gallery" class="page-section">
+        <h2>Trekking Gallery</h2>
+
+
+
+        <div class="gallery-grid">
+            <!-- Example Item 1 -->
+            <div class="gallery-item" onclick="openLightbox('Kumaraparvatha', ['images/trekking/kumaraparvatha.jpg'])">
+                <img src="images/trekking/kumaraparvatha.jpg" alt="Kumaraparvatha"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="upload-placeholder" style="display: none;">
+                    <i class="fa-solid fa-image" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <span>Kumaraparvatha</span>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Save image as:
+                        `images/trekking/kumaraparvatha.jpg`</span>
+                </div>
+                <div class="gallery-caption">Kumaraparvatha</div>
+            </div>
+
+            <!-- Example Item 2 -->
+            <div class="gallery-item" onclick="openLightbox('Makalidurga', ['images/trekking/makalidurga.jpg'])">
+                <img src="images/trekking/makalidurga.jpg" alt="Makalidurga"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="upload-placeholder" style="display: none;">
+                    <i class="fa-solid fa-image" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <span>Makalidurga</span>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Save image as:
+                        `images/trekking/makalidurga.jpg`</span>
+                </div>
+                <div class="gallery-caption">Makalidurga</div>
+            </div>
+
+            <!-- Example Item 3 -->
+            <div class="gallery-item" onclick="openLightbox('Bandaje Arbhi Falls', ['images/trekking/bandaje.jpg'])">
+                <img src="images/trekking/bandaje.jpg" alt="Bandaje Arbhi Falls"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="upload-placeholder" style="display: none;">
+                    <i class="fa-solid fa-image" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <span>Bandaje Arbhi Falls</span>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Save image as:
+                        `images/trekking/bandaje.jpg`</span>
+                </div>
+                <div class="gallery-caption">Bandaje Arbhi Falls</div>
+            </div>
+
+            <!-- Example Item 4 -->
+            <div class="gallery-item" onclick="openLightbox('Narasimha Parvatha', ['images/trekking/narasimha.jpg'])">
+                <img src="images/trekking/narasimha.jpg" alt="Narasimha Parvatha"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="upload-placeholder" style="display: none;">
+                    <i class="fa-solid fa-image" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <span>Narasimha Parvatha</span>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Save image as:
+                        `images/trekking/narasimha.jpg`</span>
+                </div>
+                <div class="gallery-caption">Narasimha Parvatha</div>
+            </div>
+
+            <!-- Example Item 5 -->
+            <div class="gallery-item" onclick="openLightbox('Ramadevara Betta', [
+                'images/trekking/ramadevara.jpg',
+                'images/trekking/ramadevara_1.jpg',
+                'images/trekking/ramadevara_2.jpg',
+                'images/trekking/ramadevara_3.jpg',
+                'images/trekking/ramadevara_4.jpg',
+                'images/trekking/ramadevara_5.jpg'
+            ])">
+                <img src="images/trekking/ramadevara.jpg" alt="Ramadevara Betta"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="upload-placeholder" style="display: none;">
+                    <i class="fa-solid fa-image" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <span>Ramadevara Betta</span>
+                    <span style="font-size: 0.8rem; margin-top: 5px;">Images loaded! Click to view.</span>
+                </div>
+                <div class="gallery-caption">Ramadevara Betta</div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="page-section">
         <h2>Get In Touch</h2>
         <div class="contact-container">
@@ -1023,6 +1240,15 @@
         </div>
     </section>
 
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</div>
+        <img id="lightbox-img" class="lightbox-content" src="">
+        <div class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">&#10095;</div>
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <p>&copy; 2026 H Bharath Bhat. All Rights Reserved.</p>
@@ -1030,6 +1256,7 @@
                 <a onclick="showPage('home')">Home</a>
                 <a onclick="showPage('projects')">Projects</a>
                 <a onclick="showPage('certificates')">Certificates</a>
+                <a onclick="showPage('gallery')">Gallery</a>
                 <a href="https://github.com/hbharathbhat" target="_blank">GitHub</a>
                 <a href="https://www.linkedin.com/in/hbharathbhat" target="_blank">LinkedIn</a>
             </div>
@@ -1082,15 +1309,19 @@
         function toggleTheme() {
             const body = document.documentElement;
             const currentTheme = body.getAttribute('data-theme');
-            const icon = document.querySelector('#themeToggle i');
+            const icon = document.querySelector('#themeIcon');
 
             if (currentTheme === 'dark') {
                 body.removeAttribute('data-theme');
-                icon.className = 'fa-solid fa-moon';
+                icon.src = 'images/theme/moon.png';
+                icon.style.mixBlendMode = 'normal';
+                icon.style.filter = 'none';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.setAttribute('data-theme', 'dark');
-                icon.className = 'fa-solid fa-sun';
+                icon.src = 'images/theme/sun.png';
+                icon.style.mixBlendMode = 'normal';
+                icon.style.filter = 'none';
                 localStorage.setItem('theme', 'dark');
             }
         }
@@ -1100,245 +1331,214 @@
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.querySelector('#themeToggle i').className = 'fa-solid fa-sun';
+                const icon = document.querySelector('#themeIcon');
+                icon.src = 'images/theme/sun.png';
+                icon.style.mixBlendMode = 'normal';
+                icon.style.filter = 'none';
             }
         });
 
-        /* --- SILICON WAFER GRID SCANNER BACKGROUND LOGIC --- */
+        /* --- SPACE THEME BACKGROUND LOGIC --- */
         const canvas = document.getElementById('vlsi-canvas');
         const ctx = canvas.getContext('2d');
 
-        const gridSize = 50;
-        let scanPos = 0;
-        let scanDir = 1;
-
-        let faults = [];
-        let circuits = []; // New Circuit Traces
-        let components = []; // Electronic Components
-        const componentTypes = ['OPAMP', 'MOSFET', 'AND', 'OR', 'RES', 'CAP', 'IND'];
+        let stars = [];
+        let spaceships = [];
 
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            initWafer();
+            initSpace();
         }
         window.addEventListener('resize', resize);
 
-        function initWafer() {
-            faults = [];
-            circuits = [];
-            components = [];
-            let cols = Math.floor(canvas.width / gridSize);
-            let rows = Math.floor(canvas.height / gridSize);
+        function initSpace() {
+            stars = [];
+            spaceships = [];
+            let numStars = Math.floor((canvas.width * canvas.height) / 4000);
 
-            // Generate structural circuit traces (embedded in the silicon)
-            const numCircuits = Math.floor((cols * rows) * 0.25); // 25% density
-            for (let i = 0; i < numCircuits; i++) {
-                let startX = Math.floor(Math.random() * cols) * gridSize;
-                let startY = Math.floor(Math.random() * rows) * gridSize;
-
-                // Traces go either horizontally or vertically for 1 to 4 grid units
-                let length = (Math.floor(Math.random() * 4) + 1) * gridSize;
-                let isHoriz = Math.random() > 0.5;
-
-                circuits.push({
-                    x: startX,
-                    y: startY,
-                    w: isHoriz ? length : 0,
-                    h: isHoriz ? 0 : length,
-                    hasPad: Math.random() > 0.5 // some end with a metallic pad
+            // Generate Stars
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.2, // Slow drift
+                    vy: (Math.random() - 0.5) * 0.2,
+                    alpha: Math.random(),
+                    alphaDir: Math.random() > 0.5 ? 1 : -1,
+                    alphaSpeed: Math.random() * 0.01 + 0.005
                 });
             }
+        }
 
-            // Generate Electronic Components
-            const numComps = Math.floor((cols * rows) * 0.04); // 4% density
-            for (let i = 0; i < numComps; i++) {
-                components.push({
-                    x: Math.floor(Math.random() * cols) * gridSize,
-                    y: Math.floor(Math.random() * rows) * gridSize,
-                    type: componentTypes[Math.floor(Math.random() * componentTypes.length)]
-                });
+        /* ISS images cache */
+        let loadedSatellites = { iss_dark: null, iss_light: null };
+
+        let imgDark = new Image();
+        imgDark.onload = () => { loadedSatellites.iss_dark = imgDark; };
+        imgDark.src = 'images/satellites/iss_dark.png';
+
+        let imgLight = new Image();
+        imgLight.onload = () => { loadedSatellites.iss_light = imgLight; };
+        imgLight.src = 'images/satellites/iss_light.png';
+
+        function createSpaceship() {
+            if (!loadedSatellites.iss_dark || !loadedSatellites.iss_light) return; // Wait for both
+            if (spaceships.length >= 1) return; // Only 1 ISS at a time
+
+            const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+            let startX, startY, angle;
+            const speed = 0.3 + Math.random() * 0.5; // Very slow, majestic orbit
+
+            if (side === 0) { // Top
+                startX = Math.random() * canvas.width;
+                startY = -200;
+                angle = Math.PI / 2 + (Math.random() - 0.5) * 0.3;
+            } else if (side === 1) { // Right
+                startX = canvas.width + 200;
+                startY = Math.random() * canvas.height;
+                angle = Math.PI + (Math.random() - 0.5) * 0.3;
+            } else if (side === 2) { // Bottom
+                startX = Math.random() * canvas.width;
+                startY = canvas.height + 200;
+                angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.3;
+            } else { // Left
+                startX = -200;
+                startY = Math.random() * canvas.height;
+                angle = (Math.random() - 0.5) * 0.3;
             }
 
-            // Randomly place "faults" (verification hotspots)
-            for (let i = 0; i < (cols * rows) * 0.03; i++) {
-                faults.push({
-                    x: Math.floor(Math.random() * cols) * gridSize,
-                    y: Math.floor(Math.random() * rows) * gridSize,
-                    intensity: Math.random()
-                });
-            }
+            spaceships.push({
+                x: startX,
+                y: startY,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                angle: angle + Math.PI / 2, // ISS nose points toward motion
+                size: 150 + Math.random() * 100, // Large, detailed ISS 
+                rotSpeed: (Math.random() - 0.5) * 0.002 // Extremely slow tumble
+            });
         }
 
         resize();
 
-        function drawWafer() {
+        function drawSpace() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-            const gridColor = isDark ? 'rgba(72, 201, 176, 0.08)' : 'rgba(0, 153, 153, 0.08)';
-            const scanColor = isDark ? 'rgba(72, 201, 176, 0.5)' : 'rgba(0, 153, 153, 0.4)';
-            const scanGlow = isDark ? 'rgba(72, 201, 176, 0.15)' : 'rgba(0, 153, 153, 0.1)';
-            const faultColor = isDark ? 'rgba(255, 118, 117, 0.6)' : 'rgba(231, 76, 60, 0.6)';
+            // Star Colors depending on theme
+            const starColor = isDark ? '255, 255, 255' : '15, 15, 25';
 
-            // Draw Silicon Die Grid
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = gridColor;
-            ctx.beginPath();
+            // Draw Stars
+            stars.forEach(star => {
+                star.alpha += star.alphaDir * star.alphaSpeed;
+                if (star.alpha <= 0.1) star.alphaDir = 1;
+                if (star.alpha >= 0.9) star.alphaDir = -1;
 
-            for (let x = 0; x <= canvas.width; x += gridSize) {
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-            }
-            for (let y = 0; y <= canvas.height; y += gridSize) {
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-            }
-            ctx.stroke();
+                star.x += star.vx;
+                star.y += star.vy;
 
-            // Verification Scan Bar Overlapping
-            scanPos += 2 * scanDir;
-            if (scanPos > canvas.height + 200) {
-                scanDir = -1;
-                initWafer();
-            } else if (scanPos < -200) {
-                scanDir = 1;
-                initWafer();
-            }
+                if (star.x > canvas.width) star.x = 0;
+                if (star.x < 0) star.x = canvas.width;
+                if (star.y > canvas.height) star.y = 0;
+                if (star.y < 0) star.y = canvas.height;
 
-            // Draw embedded circuit traces (glows when scanned)
-            ctx.lineWidth = 2.5;
-            circuits.forEach(c => {
-                let centerY = c.y + (c.h / 2);
-                let dist = Math.abs(centerY - scanPos);
-
-                let glowMultiplier = 0;
-                if (dist < 150) {
-                    glowMultiplier = Math.max(0, 1 - (dist / 150));
-                }
-
-                if (glowMultiplier > 0) {
-                    ctx.strokeStyle = isDark ? `rgba(72, 201, 176, ${0.15 + 0.5 * glowMultiplier})` : `rgba(0, 153, 153, ${0.15 + 0.5 * glowMultiplier})`;
-                    ctx.shadowBlur = 6 * glowMultiplier;
-                    ctx.shadowColor = ctx.strokeStyle;
-                } else {
-                    ctx.strokeStyle = isDark ? 'rgba(72, 201, 176, 0.1)' : 'rgba(0, 153, 153, 0.1)';
-                    ctx.shadowBlur = 0;
-                }
-
+                ctx.fillStyle = `rgba(${starColor}, ${star.alpha})`;
                 ctx.beginPath();
-                ctx.moveTo(c.x, c.y);
-                ctx.lineTo(c.x + c.w, c.y + c.h);
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-
-                // Draw end Pad
-                if (c.hasPad) {
-                    ctx.fillStyle = ctx.strokeStyle;
-                    let padX = c.w > 0 ? c.x + c.w : c.x;
-                    let padY = c.h > 0 ? c.y + c.h : c.y;
-                    ctx.fillRect(padX - 4, padY - 4, 8, 8);
-                }
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
             });
 
-            // Draw Electronic Components
-            components.forEach(comp => {
-                let dist = Math.abs(comp.y - scanPos);
-                let glowMultiplier = 0;
-                if (dist < 150) {
-                    glowMultiplier = Math.max(0, 1 - (dist / 150));
-                }
-
-                if (glowMultiplier > 0) {
-                    ctx.strokeStyle = isDark ? `rgba(72, 201, 176, ${0.15 + 0.65 * glowMultiplier})` : `rgba(0, 153, 153, ${0.15 + 0.65 * glowMultiplier})`;
-                    ctx.shadowBlur = 8 * glowMultiplier;
-                    ctx.shadowColor = ctx.strokeStyle;
-                } else {
-                    ctx.strokeStyle = isDark ? 'rgba(72, 201, 176, 0.1)' : 'rgba(0, 153, 153, 0.1)';
-                    ctx.shadowBlur = 0;
-                }
-
-                ctx.lineWidth = 2;
-                let x = comp.x;
-                let y = comp.y;
-                let size = 12;
-
-                if (comp.type === 'OPAMP') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.lineTo(x + size, y); ctx.lineTo(x - size, y + size); ctx.closePath(); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - size / 2); ctx.lineTo(x - size, y - size / 2); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + size / 2); ctx.lineTo(x - size, y + size / 2); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
-                } else if (comp.type === 'MOSFET') {
-                    ctx.beginPath(); ctx.moveTo(x - size / 4, y - size); ctx.lineTo(x - size / 4, y + size); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size / 2, y - size * 0.8); ctx.lineTo(x - size / 2, y + size * 0.8); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size / 4, y - size * 0.8); ctx.lineTo(x + size / 2, y - size * 0.8); ctx.lineTo(x + size / 2, y - size * 1.5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size / 4, y + size * 0.8); ctx.lineTo(x + size / 2, y + size * 0.8); ctx.lineTo(x + size / 2, y + size * 1.5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size / 2, y); ctx.lineTo(x - size * 1.2, y); ctx.stroke();
-                } else if (comp.type === 'AND') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.lineTo(x, y - size); ctx.arc(x, y, size, -Math.PI / 2, Math.PI / 2); ctx.lineTo(x - size, y + size); ctx.closePath(); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - 5); ctx.lineTo(x - size, y - 5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + 5); ctx.lineTo(x - size, y + 5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
-                } else if (comp.type === 'OR') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y - size); ctx.quadraticCurveTo(x, y - size, x + size, y); ctx.quadraticCurveTo(x, y + size, x - size, y + size); ctx.quadraticCurveTo(x - size / 2, y, x - size, y - size); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y - 5); ctx.lineTo(x - size + 3, y - 5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - size - 6, y + 5); ctx.lineTo(x - size + 3, y + 5); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 6, y); ctx.stroke();
-                } else if (comp.type === 'RES') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - size * 0.7, y); ctx.lineTo(x - size * 0.5, y - size / 2); ctx.lineTo(x - size * 0.1, y + size / 2); ctx.lineTo(x + size * 0.3, y - size / 2); ctx.lineTo(x + size * 0.7, y + size / 2); ctx.lineTo(x + size * 0.9, y); ctx.lineTo(x + size, y); ctx.stroke();
-                } else if (comp.type === 'CAP') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - 2, y); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x - 2, y - size / 2); ctx.lineTo(x - 2, y + size / 2); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + 2, y - size / 2); ctx.lineTo(x + 2, y + size / 2); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + 2, y); ctx.lineTo(x + size, y); ctx.stroke();
-                } else if (comp.type === 'IND') {
-                    ctx.beginPath(); ctx.moveTo(x - size, y); ctx.lineTo(x - size * 0.8, y); ctx.stroke();
-                    ctx.beginPath(); ctx.arc(x - size * 0.5, y, size * 0.3, Math.PI, 0); ctx.stroke();
-                    ctx.beginPath(); ctx.arc(x + size * 0.1, y, size * 0.3, Math.PI, 0); ctx.stroke();
-                    ctx.beginPath(); ctx.arc(x + size * 0.7, y, size * 0.3, Math.PI, 0); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(x + size, y); ctx.lineTo(x + size + 4, y); ctx.stroke();
-                }
-                ctx.shadowBlur = 0;
-            });
-
-            // Draw Scanner Beam (Gradient)
-            let grad = ctx.createLinearGradient(0, scanPos - 100, 0, scanPos + 100);
-            if (scanDir === 1) {
-                grad.addColorStop(0, 'transparent');
-                grad.addColorStop(0.9, scanGlow);
-                grad.addColorStop(1, scanColor);
-            } else {
-                grad.addColorStop(0, scanColor);
-                grad.addColorStop(0.1, scanGlow);
-                grad.addColorStop(1, 'transparent');
+            // Randomly spawn ISS
+            if (Math.random() < 0.005 && spaceships.length < 1) {
+                createSpaceship();
             }
 
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, scanPos - 100, canvas.width, 200);
+            // Draw Real ISS
+            for (let i = spaceships.length - 1; i >= 0; i--) {
+                let ship = spaceships[i];
+                ship.x += ship.vx;
+                ship.y += ship.vy;
+                ship.angle += ship.rotSpeed; // Very slow tumble
 
-            // Draw Scanner Line Highlight
-            ctx.fillStyle = scanColor;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = scanColor;
-            ctx.fillRect(0, scanDir === 1 ? scanPos + 98 : scanPos - 100, canvas.width, 2);
-            ctx.shadowBlur = 0;
+                ctx.save();
+                ctx.translate(ship.x, ship.y);
+                ctx.rotate(ship.angle);
 
-            // Draw Verification Faults
-            faults.forEach(fault => {
-                const dist = Math.abs((fault.y + gridSize / 2) - scanPos);
-                if (dist < 150) {
-                    const alpha = Math.max(0, 1 - (dist / 150));
-                    ctx.fillStyle = faultColor;
-                    ctx.globalAlpha = alpha * fault.intensity;
-                    ctx.fillRect(fault.x + 2, fault.y + 2, gridSize - 4, gridSize - 4);
-                    ctx.globalAlpha = 1.0;
+                let img = isDark ? loadedSatellites.iss_dark : loadedSatellites.iss_light;
+                if (img) {
+                    // Blend mode magic:
+                    // 'screen' makes black background disappear (for dark theme)
+                    // 'multiply' makes white background disappear (for light theme)
+                    ctx.globalCompositeOperation = isDark ? 'screen' : 'multiply';
+
+                    // Draw the image centered
+                    let aspectRatio = img.naturalHeight / img.naturalWidth;
+                    let drawHeight = ship.size * aspectRatio;
+                    ctx.drawImage(img, -ship.size / 2, -drawHeight / 2, ship.size, drawHeight);
+
+                    // Reset blending mode
+                    ctx.globalCompositeOperation = 'source-over';
                 }
-            });
 
-            requestAnimationFrame(drawWafer);
+                ctx.restore();
+
+                // Remove ship if fully off-screen
+                if (ship.x < -300 || ship.x > canvas.width + 300 || ship.y < -300 || ship.y > canvas.height + 300) {
+                    spaceships.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(drawSpace);
         }
 
-        drawWafer();
+        drawSpace();
+
+        /* --- LIGHTBOX LOGIC --- */
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        function openLightbox(title, images) {
+            currentLightboxImages = images;
+            currentLightboxIndex = 0;
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            lightbox.style.display = 'flex';
+            lightboxCaption.innerText = title + (images.length > 1 ? " (1/" + images.length + ")" : "");
+            lightboxImg.src = images[currentLightboxIndex];
+
+            document.querySelector('.lightbox-prev').style.display = images.length > 1 ? 'block' : 'none';
+            document.querySelector('.lightbox-next').style.display = images.length > 1 ? 'block' : 'none';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function changeLightboxImage(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex >= currentLightboxImages.length) {
+                currentLightboxIndex = 0;
+            } else if (currentLightboxIndex < 0) {
+                currentLightboxIndex = currentLightboxImages.length - 1;
+            }
+
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const title = lightboxCaption.innerText.split(' (')[0];
+
+            lightboxImg.src = currentLightboxImages[currentLightboxIndex];
+            lightboxCaption.innerText = title + " (" + (currentLightboxIndex + 1) + "/" + currentLightboxImages.length + ")";
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
     </script>
 
 </body>

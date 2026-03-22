@@ -1,0 +1,69 @@
+﻿{
+    "batchcomplete":  "",
+    "query":  {
+                  "normalized":  [
+                                     {
+                                         "from":  "James_Webb_Space_Telescope",
+                                         "to":  "James Webb Space Telescope"
+                                     },
+                                     {
+                                         "from":  "Curiosity_(rover)",
+                                         "to":  "Curiosity (rover)"
+                                     },
+                                     {
+                                         "from":  "Pioneer_10",
+                                         "to":  "Pioneer 10"
+                                     },
+                                     {
+                                         "from":  "Sputnik_1",
+                                         "to":  "Sputnik 1"
+                                     }
+                                 ],
+                  "pages":  {
+                                "36645032":  {
+                                                 "pageid":  36645032,
+                                                 "ns":  0,
+                                                 "title":  "Curiosity (rover)",
+                                                 "thumbnail":  {
+                                                                   "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg/500px-Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg",
+                                                                   "width":  500,
+                                                                   "height":  689
+                                                               },
+                                                 "pageimage":  "Curiosity_Self-Portrait_at_\u0027Big_Sky\u0027_Drilling_Site.jpg"
+                                             },
+                                "434221":  {
+                                               "pageid":  434221,
+                                               "ns":  0,
+                                               "title":  "James Webb Space Telescope",
+                                               "thumbnail":  {
+                                                                 "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/JWST_spacecraft_model_3.png/500px-JWST_spacecraft_model_3.png",
+                                                                 "width":  500,
+                                                                 "height":  428
+                                                             },
+                                               "pageimage":  "JWST_spacecraft_model_3.png"
+                                           },
+                                "38198":  {
+                                              "pageid":  38198,
+                                              "ns":  0,
+                                              "title":  "Pioneer 10",
+                                              "thumbnail":  {
+                                                                "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/An_artist%27s_impression_of_a_Pioneer_spacecraft_on_its_way_to_interstellar_space.jpg/500px-An_artist%27s_impression_of_a_Pioneer_spacecraft_on_its_way_to_interstellar_space.jpg",
+                                                                "width":  500,
+                                                                "height":  413
+                                                            },
+                                              "pageimage":  "An_artist\u0027s_impression_of_a_Pioneer_spacecraft_on_its_way_to_interstellar_space.jpg"
+                                          },
+                                "28484":  {
+                                              "pageid":  28484,
+                                              "ns":  0,
+                                              "title":  "Sputnik 1",
+                                              "thumbnail":  {
+                                                                "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9_%D0%B2_%D0%BC%D0%B8%D1%80%D0%B5_%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%BF%D1%83%D1%82%D0%BD%D0%B8%D0%BA_%D0%97%D0%B5%D0%BC%D0%BB%D0%B8.jpg/500px-%D0%9F%D0%B5%D1%80%D0%B2%D1%8B%D0%B9_%D0%B2_%D0%BC%D0%B8%D1%80%D0%B5_%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9_%D1%81%D0%BF%D1%83%D1%82%D0%BD%D0%B8%D0%BA_%D0%97%D0%B5%D0%BC%D0%BB%D0%B8.jpg",
+                                                                "width":  500,
+                                                                "height":  375
+                                                            },
+                                              "pageimage":  "Первый_в_мире_искусственный_спутник_Земли.jpg"
+                                          }
+                            }
+              }
+}

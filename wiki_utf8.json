@@ -1,0 +1,54 @@
+﻿{
+    "batchcomplete":  "",
+    "query":  {
+                  "normalized":  [
+                                     {
+                                         "from":  "Voyager_1",
+                                         "to":  "Voyager 1"
+                                     },
+                                     {
+                                         "from":  "Hubble_Space_Telescope",
+                                         "to":  "Hubble Space Telescope"
+                                     },
+                                     {
+                                         "from":  "International_Space_Station",
+                                         "to":  "International Space Station"
+                                     }
+                                 ],
+                  "pages":  {
+                                "40203":  {
+                                              "pageid":  40203,
+                                              "ns":  0,
+                                              "title":  "Hubble Space Telescope",
+                                              "thumbnail":  {
+                                                                "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/500px-HST-SM4.jpeg",
+                                                                "width":  500,
+                                                                "height":  375
+                                                            },
+                                              "pageimage":  "HST-SM4.jpeg"
+                                          },
+                                "15043":  {
+                                              "pageid":  15043,
+                                              "ns":  0,
+                                              "title":  "International Space Station",
+                                              "thumbnail":  {
+                                                                "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/The_station_pictured_from_the_SpaceX_Crew_Dragon_1.jpg/500px-The_station_pictured_from_the_SpaceX_Crew_Dragon_1.jpg",
+                                                                "width":  500,
+                                                                "height":  306
+                                                            },
+                                              "pageimage":  "The_station_pictured_from_the_SpaceX_Crew_Dragon_1.jpg"
+                                          },
+                                "32781":  {
+                                              "pageid":  32781,
+                                              "ns":  0,
+                                              "title":  "Voyager 1",
+                                              "thumbnail":  {
+                                                                "source":  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Voyager_spacecraft_model.png/500px-Voyager_spacecraft_model.png",
+                                                                "width":  500,
+                                                                "height":  363
+                                                            },
+                                              "pageimage":  "Voyager_spacecraft_model.png"
+                                          }
+                            }
+              }
+}
